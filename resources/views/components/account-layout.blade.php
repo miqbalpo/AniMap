@@ -11,11 +11,28 @@
         html, body {
             background-color: #1B262C;
         }
-        nav {
-            position: sticky;
-            background-color: #1B262C;
-            padding: 1rem;
-        }
+        .navbar{
+        width: 100%;
+        position: fixed;
+        top: 0;
+        background-color: #1B262C;
+        padding: 1rem;
+    }
+    .navbar .btn, .btn{
+        /* position: fixed; */
+        width: 100px;
+        background-color: #1C8EDB;
+        color: white;
+        border: none;
+    }
+    a{
+        text-decoration: none;
+        color: white;
+        font-weight: 400;
+    }
+    .btn:active{
+        background-color: red;
+    }
         main {
             width: 30%;
             margin-top: 10vh;
@@ -23,22 +40,14 @@
             font-family: "Poppins", serif;
             font-weight: 300;
         }
-        nav{
-            width: 90%;
-        }
-        .navbar .btn {
-            position: fixed;
-            width: 100px;
-            background-color: #1C8EDB;
-            color: white;
-            border: none;
-        }
     </style>
 </head>
 <body class="mx-auto text-white">
     <nav class="navbar d-flex justify-content-end">
         <div>
-            <button type="submit" class="btn">Search</button>
+            <button type="button" class="btn justify-content-end">
+                <a href="{{ route('welcome') }}">Search</a>
+            </button>
         </div>
     </nav>
     <main class="mx-auto">

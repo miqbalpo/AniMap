@@ -1,6 +1,6 @@
 <x-account-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <h1 class="mb-4 text-center">Login to AniMap</h1>
+    <h1 class="mb-4 text-center fw-semibold">Login to AniMap</h1>
     <form action="">
     <div class="mb-4">
         <label for="exampleFormControlInput1" class="form-label">Email Address</label>
