@@ -4,11 +4,11 @@
     <form action="">
     <div class="mb-4">
         <label for="exampleFormControlInput1" class="form-label">Email Address</label>
-        <input type="email" class="form-control border-success" id="exampleFormControlInput1" placeholder="name@example.com">
+        <input type="email" class="form-control border-info" id="exampleFormControlInput1" placeholder="name@example.com">
     </div>
     <div class="mb-4">
         <label for="exampleFormControlInput2" class="form-label">Password</label>
-        <input type="password" class="form-control border-success" id="exampleFormControlInput1">
+        <input type="password" class="form-control border-info" id="exampleFormControlInput1">
     </div>
     <button type="submit" class="btn btn-primary d-block mx-auto" style="width: 50%; background-color: #1C8EDB; border: none;">Create Account</button>
     </form>
