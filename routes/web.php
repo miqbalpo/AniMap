@@ -7,11 +7,11 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    return view('login');
+    return view('login', ['title'=> 'Login']);
 });
 
 Route::get('/register', function () {
-    return view('register');
+    return view('register', ['title'=> 'Login']);
 });
 
 Route::get('/test', function () {
