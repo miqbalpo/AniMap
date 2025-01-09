@@ -39,8 +39,8 @@
         <div class="card bg-transparent text-white">
             <div class="card-body bg-transparent ">
                 <a href="#" class="btn btn-primary bg-transparent">
-                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" alt="...">
-                    <h5 class="card-title mt-4 fs-5 text-center">Love Live! Nijigasaki</h5>
+                    <img src="https://cdn.myanimelist.net/images/anime/9/80417l.jpg" class="card-img-top" alt="...">
+                    <h5 class="card-title mt-4 fs-5 text-center">New Game!</h5>
                 </a>
             </div>
         </div>
