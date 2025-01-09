@@ -14,6 +14,10 @@ Route::get('/register', function () {
     return view('register', ['title'=> 'Login']);
 })->name('register');
 
+Route::get('/search-results', function () {
+    return view('search-results', ['title' => 'Anime Search']);
+})->name('search-results');
+
 Route::get('/test', function () {
     return view('test');
 })->name('test');

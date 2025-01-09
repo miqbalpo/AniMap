@@ -23,6 +23,7 @@
         width: 100px;
         background-color: #1C8EDB;
         color: white;
+        font-weight: 500;
         border: none;
     }
     a{
@@ -30,8 +31,8 @@
         color: white;
         font-weight: 400;
     }
-    .btn:active{
-        background-color: red;
+    .navbar .btn:active{
+        background-color: #2CCCFF;
     }
         main {
             width: 30%;

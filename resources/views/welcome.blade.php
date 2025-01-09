@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div class="w-100 d-none d-md-block"></div>
+        <div class="w-100 d-none d-md-block my-0"></div>
 
         <div class="card bg-transparent text-white">
             <div class="card-body bg-transparent ">
