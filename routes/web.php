@@ -18,6 +18,10 @@ Route::get('/search-results', function () {
     return view('search-results', ['title' => 'Anime Search']);
 })->name('search-results');
 
+Route::get('/anime-information', function () {
+    return view('anime-information', ['title' => 'Anime Search']);
+})->name('anime-information');
+
 Route::get('/test', function () {
     return view('test');
 })->name('test');
