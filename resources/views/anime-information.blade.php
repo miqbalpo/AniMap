@@ -11,7 +11,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-star-fill my-auto text-warning" viewBox="0 0 16 16">
                                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                             </svg>
-                            <h5 class="ms-3 my-auto">10</h5>
+                            <h5 class="ms-3 my-auto">8.25</h5>
                         </div>
                         <div class="icon-info d-flex mx-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-calendar3  my-auto" viewBox="0 0 16 16">
@@ -48,74 +48,80 @@
                 </div>
             </div>
         </div>
-        <div id="info-section" class="d-flex ms-4">
+        <div id="info-section" class="d-flex mt-4 ms-4">
             <div id="details-section" class="card text-center">
                 <h4 class="my-3">Details</h4>
-                <div class="d-flex ms-3">
+                <div class="text-start ms-3">
                    <h6>Type: </h6>
-                   <p>movie</p>
+                   <p>TV</p>
                 </div>
-                <div class="d-flex ms-3">
+                <div class="text-start ms-3">
                     <h6>Episodes: </h6>
-                    <p>movie</p>
+                    <p>13</p>
                  </div>
-                 <div class="d-flex ms-3">
+                 <div class="text-start ms-3">
+                    <h6>Status: </h6>
+                    <p>Finished Airing</p>
+                 </div>
+                 <div class="text-start ms-3">
                     <h6>Aired: </h6>
-                    <p>movie</p>
+                    <p>Oct 3, 2020 to Dec 26, 2020</p>
                  </div>
-                 <div class="d-flex ms-3">
+                 <div class="text-start ms-3">
                     <h6>Premiered: </h6>
-                    <p>movie</p>
+                    <p>Fall 2020</p>
                  </div>
-                 <div class="d-flex ms-3">
+                 <div class="text-start ms-3">
                     <h6>Broadcast: </h6>
-                    <p>movie</p>
+                    <p>Saturdays at 22:30 (JST)</p>
                  </div>
-                 <div class="d-flex ms-3">
+                 <div class="text-start ms-3">
                      <h6>Producers: </h6>
-                     <p>movie</p>
+                     <p>Bushiroad, Sunrise Music, Kadokawa, Bandai Namco Arts</p>
                   </div>
-                  <div class="d-flex ms-3">
+                  <div class="text-start ms-3">
                      <h6>Licensors: </h6>
-                     <p>movie</p>
+                     <p>Funimation</p>
                   </div>
-                  <div class="d-flex ms-3">
+                  <div class="text-start mx-3">
                      <h6>Studios: </h6>
-                     <p>movie</p>
+                     <p>Sunrise</p>
                   </div>
-                  <div class="d-flex ms-3">
+                  <div class="text-start ms-3">
                     <h6>Source: </h6>
-                    <p>movie</p>
+                    <p>Other</p>
                  </div>
-                 <div class="d-flex ms-3">
+                 <div class="text-start ms-3">
                      <h6>Genres: </h6>
-                     <p>movie</p>
+                     <p>Slice of Life</p>
                   </div>
-                  <div class="d-flex ms-3">
+                  <div class="text-start ms-3">
                      <h6>Theme: </h6>
                      <p>movie</p>
                   </div>
-                  <div class="d-flex ms-3">
+                  <div class="text-start ms-3">
                      <h6>Demographic: </h6>
-                     <p>movie</p>
+                     <p>Idols (Female), Music, School</p>
                   </div>
-                  <div class="d-flex ms-3">
+                  <div class="text-start ms-3">
                     <h6>Duration: </h6>
-                    <p>movie</p>
+                    <p>24 min. per ep.</p>
                  </div>
-                 <div class="d-flex ms-3">
+                 <div class="text-start ms-3">
                      <h6>Rating: </h6>
-                     <p>movie</p>
+                     <p>PG-13 - Teens 13 or older</p>
                   </div>
             </div>
             <div id="synopsis-section" class="text-break text-justify mx-5">
                 <h1 class="fw-semibold">Synopsis</h1>
                 <p class="fs-5">
-                    The Nijigasaki High School Idol Club continues to gain popularity as its reputation grows, even catching the attention of aspiring school idol Zhong Lanzhu. However, when Lanzhu visits the club and interacts with its members, she realizes that their ideals differ from her own. This sparks the beginning of a rivalry between Lanzhu and the club members, as she challenges them to see who can captivate a larger audience at the upcoming School Idol Festival.
-                    <br>
-                    Thus, the school idol club starts a new chapter in its quest to achieve idol stardom. Being more united than ever before, the girls continue to practice for the festival—wanting to show Lanzhu what it truly means to be a school idol.
+                    Buried within the numerous clubs at Nijigasaki High School lies the school idol club. The club, while lacking popularity, definitely does not lack potential. During their debut performance, they were able to seize a sizable audience, along with the attention of their schoolmates Ayumu Uehara and Yuu Takasaki.
 
-[Written by MAL Rewrite]
+                    Enamored, the duo makes their way to join the club; however, they are disappointed to find out that the club had just been disbanded. Nevertheless, Ayumu does not believe that it should have ended there. Together with Yuu, they begin restoring the school idol club, hoping to recreate the idol performances that dazzled them before.
+
+                    Love Live! Nijigasaki Gakuen School Idol Doukoukai shines its spotlight over the reformed school idol club as they recruit both former members of the club alongside newcomers. Taking the first step towards their dreams, how will these girls achieve idol stardom?
+
+                    [Written by MAL Rewrite]
                 </p>
             </div>
         </div>
@@ -123,87 +129,101 @@
             <h1 class="fw-semibold">Characters</h1>
             <div id="characters-list" class="row">
                 <div class="characters-info d-flex my-3 col-6">
-                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" width="36" height="48" alt="...">
+                    <img src="https://cdn.myanimelist.net/images/characters/2/421049.jpg?s=02e4f0ad6db780090bf8367ecc255544" class="card-img-top" width="36" height="48" alt="...">
                     <div class="ms-5 align-center">
-                        <p class="fw-semibold">Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum.</p>
+                        <p class="fw-semibold">Takasaki, Yuu</p>
+                        <p>Main</p>
                     </div>
                 </div>
                 <div class="characters-info d-flex my-3 col-6">
-                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" width="36" height="48" alt="...">
+                    <img src="https://cdn.myanimelist.net/images/characters/9/421041.jpg?s=3b89889b504bc908fde7a9c8c8fd8a10" class="card-img-top" width="36" height="48" alt="...">
                     <div class="ms-5 align-center">
-                        <p class="fw-semibold">Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum.</p>
+                        <p class="fw-semibold">Yuki, Setsuna</p>
+                        <p>Main</p>
                     </div>
                 </div>
                 <div class="characters-info d-flex my-3 col-6">
-                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" width="36" height="48" alt="...">
+                    <img src="https://cdn.myanimelist.net/images/characters/6/396294.jpg?s=77ea0a5e098eb7bf465cb1413f14d6a3" class="card-img-top" width="36" height="48" alt="...">
                     <div class="ms-5 align-center">
-                        <p class="fw-semibold">Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum.</p>
+                        <p class="fw-semibold">Uehara, Ayumu</p>
+                        <p>Main</p>
                     </div>
                 </div>
                 <div class="characters-info d-flex my-3 col-6">
-                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" width="36" height="48" alt="...">
+                    <img src="https://cdn.myanimelist.net/images/characters/8/488261.jpg?s=eb0ebc6e3dacf1157f4b1d8b2d0417fc" class="card-img-top" width="36" height="48" alt="...">
                     <div class="ms-5 align-center">
-                        <p class="fw-semibold">Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum.</p>
+                        <p class="fw-semibold">Nakasu, Kasumi</p>
+                        <p>Main</p>
                     </div>
                 </div>
                 <div class="characters-info d-flex my-3 col-6">
-                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" width="36" height="48" alt="...">
+                    <img src="https://cdn.myanimelist.net/images/characters/7/421048.jpg?s=9f3e56507b5575dc467b1c2280950c6b" class="card-img-top" width="36" height="48" alt="...">
                     <div class="ms-5 align-center">
-                        <p class="fw-semibold">Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum.</p>
+                        <p class="fw-semibold">Ousaka, Shizuku</p>
+                        <p>Main</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="characters-section" class="mt-5 ms-4">
+        <div id="staff-section" class="mt-5 ms-4">
             <h1 class="fw-semibold">Staff</h1>
-            <div id="characters-list" class="row">
-                <div class="characters-info d-flex my-3 col-6">
-                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" width="36" height="48" alt="...">
+            <div id="staff-list" class="row">
+                <div class="staff-info d-flex my-3 col-6">
+                    <img src="https://cdn.myanimelist.net/images/voiceactors/1/80501.jpg?s=ee808f428c434aee43fe003623f6bf0b" class="card-img-top" width="36" height="48" alt="...">
                     <div class="ms-5 align-center">
-                        <p class="fw-semibold">Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum.</p>
+                        <p class="fw-semibold">Cook, Justin</p>
+                        <p>Producer</p>
                     </div>
                 </div>
-                <div class="characters-info d-flex my-3 col-6">
-                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" width="36" height="48" alt="...">
+                <div class="staff-info d-flex my-3 col-6">
+                    <img src="https://cdn.myanimelist.net/images/questionmark_23.gif?s=f7dcbc4a4603d18356d3dfef8abd655c" class="card-img-top" width="36" height="48" alt="...">
                     <div class="ms-5 align-center">
-                        <p class="fw-semibold">Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum.</p>
+                        <p class="fw-semibold">Oda, Makotor</p>
+                        <p>Producer</p>
                     </div>
                 </div>
-                <div class="characters-info d-flex my-3 col-6">
-                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" width="36" height="48" alt="...">
+                <div class="staff-info d-flex my-3 col-6">
+                    <img src="https://cdn.myanimelist.net/images/questionmark_23.gif?s=f7dcbc4a4603d18356d3dfef8abd655c" class="card-img-top" width="36" height="48" alt="...">
                     <div class="ms-5 align-center">
-                        <p class="fw-semibold">Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum.</p>
+                        <p class="fw-semibold">Ootsuka, Hiroshi</p>
+                        <p>Producer</p>
                     </div>
                 </div>
-                <div class="characters-info d-flex my-3 col-6">
-                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" width="36" height="48" alt="...">
+                <div class="staff-info d-flex my-3 col-6">
+                    <img src="https://cdn.myanimelist.net/images/voiceactors/3/42874.jpg?s=aef91fd9132c86444be351f412b0cfeb" class="card-img-top" width="36" height="48" alt="...">
                     <div class="ms-5 align-center">
-                        <p class="fw-semibold">Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum.</p>
+                        <p class="fw-semibold">Sabat, Christopher</p>
+                        <p>Producer</p>
                     </div>
                 </div>
-                <div class="characters-info d-flex my-3 col-6">
-                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" width="36" height="48" alt="...">
+                <div class="staff-info d-flex my-3 col-6">
+                    <img src="https://cdn.myanimelist.net/images/voiceactors/3/74638.jpg?s=7f5fd56efee675d65b56bf1c154a10f6" class="card-img-top" width="36" height="48" alt="...">
                     <div class="ms-5 align-center">
-                        <p class="fw-semibold">Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum.</p>
+                        <p class="fw-semibold">Herek, Samantha</p>
+                        <p>Assistant Producer</p>
                     </div>
                 </div>
             </div>
         </div>
         <div id="songs-section" class="mt-5 ms-4">
-
+            <h1 class="fw-semibold">Songs</h1>
+            <div class="d-flex">
+                <div id="op-list" class="mx-1">
+                    <h3 class="fw-semibold">Openings</h3>
+                    <p>1. "Nijiiro Passions! (虹色Passions!)" by Nijigasaki School Idol Club (虹ヶ咲学園スクールアイドル同好会)</p>
+                </div>
+                <div id="ed-list" class="mx-3">
+                    <h3 class="fw-semibold">Endings</h3>
+                    <p>1. "NEO SKY, NEO MAP!" by Nijigasaki School Idol Club (虹ヶ咲学園スクールアイドル同好会)</p>
+                </div>
+            </div>
         </div>
         <div id="videos-section" class="mt-5 ms-4">
-
+            <h1 class="fw-semibold">Promotional Videos</h1>
+            <div>
+                <iframe width="360" height="240" src="https://www.youtube.com/embed/6rYT31OEFvk">
+                </iframe>
+            </div>
         </div>
     </div>
 </x-main-layout>

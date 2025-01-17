@@ -58,33 +58,40 @@
             font-size: 1.5rem;
         }
         #info-section{
-            width: 100vw;
+            width: max-content;
         }
         #details-section{
             background-color: #BBE1FA;
             color: black;
         }
+
         #synopsis-section{
-            width: 100vw;
+            width: 50vw;
         }
         #synopsis-section p{
             text-align: justify;
         }
-        #characters-section{
+        #characters-section, #staff-section, #songs-section{
             width: 100vw;
         }
-        #characters-section #characters-list{
+        #characters-section #characters-list, #staff-section #staff-list{
             height: 50vh;
             overflow-y: scroll;
         }
-        #characters-section img{
+        #characters-section img, #staff-section img{
             width: 60px;
             height: 90px;
         }
-        #characters-section p{
+        #characters-section p, #staff-section p{
             width: 20rem;
         }
-        #characters-section .characters-info{
+        #characters-section .characters-info, #staff-section .staff-info{
+            width: 50vw;
+        }
+        #songs-section p{
+            width: 45vw;
+        }
+        #videos-section{
             width: 50vw;
         }
     </style>
