@@ -29,16 +29,13 @@
                 </div>
             </div>
         </div>
-        <div id="statistics-section" class="mt-4 ms-4">
+        <div id="statistics-section mt-4 ms-4">
             <h1 class="ms-4 mt-4 fw-semibold">Statistics</h1>
             <div class="text-end me-5">
                 <h5 class="fw-semibold">Total Animes</h5>
                 <h1 class="fw-semibold">100</h1>
             </div>
             <div id="statistics_chart" class="mx-auto" style="width: 1000px; height: 540px; margin-top: -100px;"></div>
-            <button type="button" class="btn">
-                <a href="#">View My Anime List</a>
-            </button>
         </div>
     </div>
 </x-main-layout>

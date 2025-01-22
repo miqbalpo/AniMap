@@ -108,21 +108,23 @@
         #account-details h5{
             width: 25vw;
         }
-        #account-details button{
+        #account-details button, #statistics-section .btn{
             width: max-content;
             background-color: #2CCCFF;
             color: white;
             font-weight: 500;
             border: none;
         }
-        a{
+        #account-details a{
             text-decoration: none;
             color: white;
             font-weight: 600;
         }
-        #account-details button:active{
-            background-color: #2CCCFF;
+        #statistics-section .btn{
+            margin-top: -100px;
+            margin-left: 80vw;
         }
+
     </style>
 </head>
 <body class="mx-auto text-white">
