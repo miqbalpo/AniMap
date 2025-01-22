@@ -22,6 +22,10 @@ Route::get('/anime-information', function () {
     return view('anime-information', ['title' => 'Anime Search']);
 })->name('anime-information');
 
+Route::get('/account-information', function () {
+    return view('account-information', ['title' => 'Account Information']);
+})->name('account-information');
+
 Route::get('/test', function () {
     return view('test');
 })->name('test');

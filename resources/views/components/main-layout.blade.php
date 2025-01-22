@@ -11,7 +11,7 @@
 
         html, body {
             overflow-x: hidden;
-            background-color: #1C8EDB;
+            background: linear-gradient(180deg, rgba(28,142,219,1) 50%, rgba(27,38,44,1) 100%);
         }
         main {
             width: 100%;
@@ -94,6 +94,35 @@
         #videos-section{
             width: 50vw;
         }
+        #account-info-section{
+            width: 60vw;
+        }
+        #account-info-section img{
+            border-radius: 5px;
+            width: 160px;
+            height: 240px;
+        }
+        #account-details h2{
+            width: 20vw;
+        }
+        #account-details h6{
+            width: 25vw;
+        }
+        #account-details button{
+            width: max-content;
+            background-color: #2CCCFF;
+            color: white;
+            font-weight: 500;
+            border: none;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+        }
+        #account-details button:active{
+            background-color: #2CCCFF;
+        }
     </style>
 </head>
 <body class="mx-auto text-white">
@@ -101,5 +130,73 @@
     <main class="mx-auto">
         {{ $slot }}
     </main>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ["Element", "Number of Animes", { role: "style" } ],
+            ["Liked", 50, "#2CCCFF"],
+            ["Plan to Watch", 40, "#57F000"],
+            ["Currently Watching", 30, "#FBE83A"],
+            ["Disliked", 20, "color: #FFB302"],
+            ["Won't Watch", 10, "color: #FE3839"],
+          ]);
+
+          var view = new google.visualization.DataView(data);
+          view.setColumns([0, 1,
+                           { calc: "stringify",
+                             sourceColumn: 1,
+                             type: "string",
+                             role: "annotation" },
+                           2]);
+
+        var options = {
+            //title: 'Chess opening moves',
+            width: 960,
+            height: 500,
+            backgroundColor: 'transparent',
+            legend: { position: 'none' },
+            // chart: {
+            // title: 'Chess opening moves',
+            // subtitle: 'popularity by percentage'
+            // },
+            bars: 'horizontal',
+            axes: {
+            x: {
+                0: {
+                side: 'top',
+                label: 'Percentage',
+                textStyle: {
+                    color: '#FFFFFF',
+                    fontName:'Poppins' }
+                }
+            }
+            },
+            bar: { groupWidth: "50%" },
+            hAxis: {
+                textStyle: {
+                    color: '#FFFFFF',
+                    fontName:'Poppins' },
+            },
+            vAxis: {
+                textStyle: {
+                    color: '#FFFFFF',
+                    fontName:'Poppins' },
+            },
+            titleTextStyle: {
+                color: '#FFFFFF',
+                fontName:'Poppins',
+                fontSize: 18
+            },
+        };
+
+
+          var chart = new google.visualization.BarChart(document.getElementById("statistics_chart"));
+          chart.draw(view, options);
+      }
+      </script>
 </body>
 </html>
+
