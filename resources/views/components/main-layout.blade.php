@@ -105,7 +105,7 @@
         #account-details h2{
             width: 20vw;
         }
-        #account-details h6{
+        #account-details h5{
             width: 25vw;
         }
         #account-details button{
