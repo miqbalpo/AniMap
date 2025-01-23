@@ -1,5 +1,6 @@
 <x-main-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    <x-search-layout></x-search-layout>
     <div class="card bg-transparent text-white">
         <div class="card-body bg-transparent">
             <div class="d-flex btn bg-transparent">
@@ -208,11 +209,11 @@
         <div id="songs-section" class="mt-5 ms-4">
             <h1 class="fw-semibold">Songs</h1>
             <div class="d-flex">
-                <div id="op-list" class="mx-1">
+                <div id="op-list" class="ms-1 me-5">
                     <h3 class="fw-semibold">Openings</h3>
                     <p>1. "Nijiiro Passions! (虹色Passions!)" by Nijigasaki School Idol Club (虹ヶ咲学園スクールアイドル同好会)</p>
                 </div>
-                <div id="ed-list" class="mx-3">
+                <div id="ed-list" class="ms-5">
                     <h3 class="fw-semibold">Endings</h3>
                     <p>1. "NEO SKY, NEO MAP!" by Nijigasaki School Idol Club (虹ヶ咲学園スクールアイドル同好会)</p>
                 </div>

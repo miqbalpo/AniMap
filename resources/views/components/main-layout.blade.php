@@ -17,12 +17,13 @@
         html, body {
             margin: auto;
             overflow-x: hidden;
-            background: linear-gradient(180deg, rgba(28,142,219,1) 50%, rgba(27,38,44,1) 100%);
+            background: linear-gradient(180deg, rgba(28,142,219,1) 10%, rgba(27,38,44,1) 50%);
+            background-attachment: scroll;
         }
         main {
-            width: 100%;
+            width: 90%;
             margin-top: 20vh;
-            background: linear-gradient(180deg, rgba(28,142,219,1) 0%, rgba(27,38,44,1) 35%);
+            background-color: transparent;
             font-family: "Poppins", serif;
             font-weight: 300;
         }
@@ -52,6 +53,9 @@
             border-radius: 5px;
             width: 160px;
             height: 240px;
+        }
+        .dropdown-menu a:active{
+        background-color: #2CCCFF;
         }
         #overview-section h1{
             width: max-content;
@@ -95,7 +99,7 @@
             width: 50vw;
         }
         #songs-section p{
-            width: 45vw;
+            width: 40vw;
         }
         #videos-section{
             width: 50vw;
@@ -140,15 +144,23 @@
         #anime-list-section #anime-selection .btn:active{
             background-color: #2CCCFF;
         }
+        #anime-list-table {
+            border-collapse: collapse;
+        }
         #anime-list-table th,
         #anime-list-table td {
             color: white;
             background-color: transparent;
+            border: 1px solid transparent;
         }
-        #anime-list-table tr{
-            border: none;
+        #anime-list-table th{
+            height: 3rem;
+            vertical-align: middle;
         }
-
+        #anime-list-table img{
+            width: 60px;
+            height: 90px;
+        }
         #anime-list-table .btn {
             width: 120px;
             color: white;
@@ -168,80 +180,81 @@
     <main class="mx-auto">
         {{ $slot }}
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
+    <script>
+      new DataTable('#anime-list-table');
+    </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ["Element", "Number of Animes", { role: "style" } ],
-            ["Liked", 50, "#2CCCFF"],
-            ["Plan to Watch", 40, "#57F000"],
-            ["Currently Watching", 30, "#FBE83A"],
-            ["Disliked", 20, "color: #FFB302"],
-            ["Won't Watch", 10, "color: #FE3839"],
-          ]);
-
-          var view = new google.visualization.DataView(data);
-          view.setColumns([0, 1,
-                           { calc: "stringify",
-                             sourceColumn: 1,
-                             type: "string",
-                             role: "annotation" },
-                           2]);
-
-        var options = {
-            //title: 'Chess opening moves',
-            width: 960,
-            height: 500,
-            backgroundColor: 'transparent',
-            legend: { position: 'none' },
-            // chart: {
-            // title: 'Chess opening moves',
-            // subtitle: 'popularity by percentage'
-            // },
-            bars: 'horizontal',
-            axes: {
-            x: {
-                0: {
-                side: 'top',
-                label: 'Percentage',
-                textStyle: {
-                    color: '#FFFFFF',
-                    fontName:'Poppins' }
-                }
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(function () {
+            const chartContainer = document.getElementById("statistics_chart");
+            if (chartContainer) {
+                drawChart();
             }
-            },
-            bar: { groupWidth: "50%" },
-            hAxis: {
-                textStyle: {
-                    color: '#FFFFFF',
-                    fontName:'Poppins' },
-            },
-            vAxis: {
-                textStyle: {
-                    color: '#FFFFFF',
-                    fontName:'Poppins' },
-            },
-            titleTextStyle: {
-                color: '#FFFFFF',
-                fontName:'Poppins',
-                fontSize: 18
-            },
-        };
+        });
 
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ["Element", "Number of Animes", { role: "style" }],
+                ["Liked", 50, "#2CCCFF"],
+                ["Plan to Watch", 40, "#57F000"],
+                ["Currently Watching", 30, "#FBE83A"],
+                ["Disliked", 20, "color: #FFB302"],
+                ["Won't Watch", 10, "color: #FE3839"],
+            ]);
 
-          var chart = new google.visualization.BarChart(document.getElementById("statistics_chart"));
-          chart.draw(view, options);
-      }
-      </script>
-      <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-      <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
-      <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
-      <script>
-        new DataTable('#anime-list-table');
-      </script>
+            var options = {
+                width: 960,
+                height: 500,
+                backgroundColor: "transparent",
+                legend: { position: "none" },
+                bars: "horizontal",
+                axes: {
+                    x: {
+                        0: {
+                            side: "top",
+                            label: "Percentage",
+                            textStyle: {
+                                color: "#FFFFFF",
+                                fontName: "Poppins",
+                            },
+                        },
+                    },
+                },
+                bar: { groupWidth: "50%" },
+                hAxis: {
+                    textStyle: {
+                        color: "#FFFFFF",
+                        fontName: "Poppins",
+                    },
+                },
+                vAxis: {
+                    textStyle: {
+                        color: "#FFFFFF",
+                        fontName: "Poppins",
+                    },
+                },
+                titleTextStyle: {
+                    color: "#FFFFFF",
+                    fontName: "Poppins",
+                    fontSize: 18,
+                },
+            };
+
+            var chart = new google.visualization.BarChart(
+                document.getElementById("statistics_chart")
+            );
+            chart.draw(data, options);
+        }
+    </script>
+
 </body>
 </html>
 

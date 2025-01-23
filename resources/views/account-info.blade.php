@@ -1,5 +1,6 @@
 <x-main-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    <x-search-layout></x-search-layout>
     <div class="bg-transparent mx-auto text-white">
         <div id="account-info-section" class="mx-auto mb-5">
             <h1 class="mb-4 fw-semibold text-center">Account Information</h1>
@@ -15,7 +16,7 @@
                         <h5 class="my-auto text-end">Lorem, ipsum.</h5>
                     </div>
                     <div class="d-flex mb-5 ms-4 bg-transparent">
-                        <h2 class="ms-4 fw-semibold">Joined On</h2>
+                        {{-- <h2 class="ms-4 fw-semibold">Joined On</h2> --}}
                         <h5 class="my-auto text-end">Lorem, ipsum.</h5>
                     </div>
                     <div class="d-flex ms-4 bg-transparent justify-content-end">
@@ -23,7 +24,7 @@
                             <a href="#">Edit Profile</a>
                         </button>
                         <button type="button" class="btn mx-1">
-                            <a href="#">Logout</a>
+                            {{-- <a href="#">Logout</a> --}}
                         </button>
                     </div>
                 </div>

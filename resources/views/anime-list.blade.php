@@ -1,5 +1,6 @@
 <x-main-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    <x-search-layout></x-search-layout>
     <div class="bg-transparent mx-auto text-white">
         <div id="anime-list-section" class="mx-auto">
             <h1 class="mb-4 fw-semibold text-center">Anime List</h1>
@@ -11,7 +12,7 @@
                 <button class="btn mx-3">Disliked</button>
                 <button class="btn mx-3">Won't Watch</button>
             </div>
-            <div class="bg-transparent mx-auto" style="width: 90%; min-height: 70vh;">
+            <div class="bg-transparent mx-auto mt-5" style="width: 90%; min-height: 70vh;">
                 <table id="anime-list-table" class="table text-start" style="width: 100%">
                     <thead>
                         <tr>
@@ -27,7 +28,9 @@
                     </thead>
                     <tbody class="table-group-divider">
                         <tr>
-                            <td></td>
+                            <td>
+                                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" alt="">
+                            </td>
                             <td>Tiger Nixon</td>
                             <td>System Architect</td>
                             <td>Edinburgh</td>
@@ -37,7 +40,9 @@
                             <td><button class="btn">View Details</button></td>
                         </tr>
                         <tr>
-                            <td></td>
+                            <td>
+                                <img src="https://cdn.myanimelist.net/images/anime/1448/127956l.jpg" alt="">
+                            </td>
                             <td>Garrett Winters</td>
                             <td>Accountant</td>
                             <td>Tokyo</td>
@@ -47,7 +52,9 @@
                             <td><button class="btn">View Details</button></td>
                         </tr>
                         <tr>
-                            <td></td>
+                            <td>
+                                <img src="https://cdn.myanimelist.net/images/anime/1332/143513l.jpg" alt="">
+                            </td>
                             <td>Ashton Cox</td>
                             <td>Junior Technical Author</td>
                             <td>San Francisco</td>
@@ -57,7 +64,9 @@
                             <td><button class="btn">View Details</button></td>
                         </tr>
                         <tr>
-                            <td></td>
+                            <td>
+                                <img src="https://cdn.myanimelist.net/images/anime/9/80417l.jpg" alt="">
+                            </td>
                             <td>Ashton Cox</td>
                             <td>Junior Technical Author</td>
                             <td>San Francisco</td>
