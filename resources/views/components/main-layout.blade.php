@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.bootstrap5.css">
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
     <title>{{ $title }}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
         html, body {
+            margin: auto;
             overflow-x: hidden;
             background: linear-gradient(180deg, rgba(28,142,219,1) 50%, rgba(27,38,44,1) 100%);
         }
@@ -124,6 +130,36 @@
             margin-top: -100px;
             margin-left: 80vw;
         }
+        #anime-list-section #anime-selection .btn{
+            width: 120px;
+            height: 60px;
+            background-color: transparent;
+            border-radius: 0;
+            border-bottom: 2px solid white;
+        }
+        #anime-list-section #anime-selection .btn:active{
+            background-color: #2CCCFF;
+        }
+        #anime-list-table th,
+        #anime-list-table td {
+            color: white;
+            background-color: transparent;
+        }
+        #anime-list-table tr{
+            border: none;
+        }
+
+        #anime-list-table .btn {
+            width: 120px;
+            color: white;
+            background-color: #2CCCFF; /* Optional button background color */
+            border: none;
+        }
+
+        #anime-list-table .btn:hover {
+            background-color: #1C8EDB; /* Optional hover background color */
+        }
+
 
     </style>
 </head>
@@ -198,6 +234,13 @@
           var chart = new google.visualization.BarChart(document.getElementById("statistics_chart"));
           chart.draw(view, options);
       }
+      </script>
+      <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+      <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
+      <script>
+        new DataTable('#anime-list-table');
       </script>
 </body>
 </html>

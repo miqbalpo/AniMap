@@ -1,44 +1,74 @@
 <x-main-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="bg-transparent mx-auto text-white">
-        <div id="account-info-section" class="mx-auto mb-5">
-            <h1 class="mb-4 fw-semibold text-center">Account Information</h1>
-            <div class="d-flex bg-transparent">
-                <img src="https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5e7ef2ba-3c04-472a-adfa-b191c870b40e/anim=false,width=450/32455-29506324-(best%20quality,%20masterpiece_1.2),%201girl,%20solo,%20anime,%20anime%20screencap,%20%20ray%20tracing,%20global%20illumination,%20ultra%20resolution%20image,.jpeg" class="card-img-top" alt="...">
-                <div id="account-details" class="text-start">
-                    <div class="d-flex mb-4 ms-4 bg-transparent">
-                        <h2 class="ms-4 fw-semibold">Name</h2>
-                        <h5 class="my-auto text-end">Lorem ipsum dolor sit amet.</h5>
-                    </div>
-                    <div class="d-flex mb-4 ms-4 bg-transparent">
-                        <h2 class="ms-4 fw-semibold">Email</h2>
-                        <h5 class="my-auto text-end">Lorem, ipsum.</h5>
-                    </div>
-                    <div class="d-flex mb-5 ms-4 bg-transparent">
-                        <h2 class="ms-4 fw-semibold">Joined On</h2>
-                        <h5 class="my-auto text-end">Lorem, ipsum.</h5>
-                    </div>
-                    <div class="d-flex ms-4 bg-transparent justify-content-end">
-                        <button type="button" class="btn mx-1">
-                            <a href="#">Edit Profile</a>
-                        </button>
-                        <button type="button" class="btn mx-1">
-                            <a href="#">Logout</a>
-                        </button>
-                    </div>
-                </div>
+        <div id="anime-list-section" class="mx-auto">
+            <h1 class="mb-4 fw-semibold text-center">Anime List</h1>
+            <div id="anime-selection" class="d-flex justify-content-center my-4">
+                <button class="btn mx-3">All Anime</button>
+                <button class="btn mx-3">Liked</button>
+                <button class="btn mx-3">Plan to Watch</button>
+                <button class="btn mx-3">Currently Watching</button>
+                <button class="btn mx-3">Disliked</button>
+                <button class="btn mx-3">Won't Watch</button>
             </div>
-        </div>
-        <div id="statistics-section" class="mt-4 ms-4">
-            <h1 class="ms-4 mt-4 fw-semibold">Statistics</h1>
-            <div class="text-end me-5">
-                <h5 class="fw-semibold">Total Animes</h5>
-                <h1 class="fw-semibold">100</h1>
+            <div class="bg-transparent mx-auto" style="width: 90%; min-height: 70vh;">
+                <table id="anime-list-table" class="table text-start" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Score</th>
+                            <th>Premiered</th>
+                            <th>Type</th>
+                            <th>Studios</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr>
+                            <td></td>
+                            <td>Tiger Nixon</td>
+                            <td>System Architect</td>
+                            <td>Edinburgh</td>
+                            <td>61</td>
+                            <td>2011-04-25</td>
+                            <td>$320,800</td>
+                            <td><button class="btn">View Details</button></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Garrett Winters</td>
+                            <td>Accountant</td>
+                            <td>Tokyo</td>
+                            <td>63</td>
+                            <td>2011-07-25</td>
+                            <td>$170,750</td>
+                            <td><button class="btn">View Details</button></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Ashton Cox</td>
+                            <td>Junior Technical Author</td>
+                            <td>San Francisco</td>
+                            <td>66</td>
+                            <td>2009-01-12</td>
+                            <td>$86,000</td>
+                            <td><button class="btn">View Details</button></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Ashton Cox</td>
+                            <td>Junior Technical Author</td>
+                            <td>San Francisco</td>
+                            <td>66</td>
+                            <td>2009-01-12</td>
+                            <td>$86,000</td>
+                            <td><button class="btn">View Details</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div id="statistics_chart" class="mx-auto" style="width: 1000px; height: 540px; margin-top: -100px;"></div>
-            <button type="button" class="btn">
-                <a href="#">View My Anime List</a>
-            </button>
         </div>
     </div>
 </x-main-layout>
