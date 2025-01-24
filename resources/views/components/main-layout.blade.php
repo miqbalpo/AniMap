@@ -112,17 +112,35 @@
             width: 160px;
             height: 240px;
         }
-        #account-details h2{
-            width: 20vw;
-        }
-        #account-details h5{
-            width: 25vw;
-        }
-        #account-details button, #statistics-section .btn{
+        #account-info-section button{
             width: max-content;
             background-color: #2CCCFF;
             color: white;
             font-weight: 500;
+            border: none;
+        }
+        #profile-picture button{
+            width: 100%;
+        }
+        #profile-picture .profile-pic-btn:disabled{
+            visibility: hidden;
+        }
+        #account-details h2{
+            width: 20vw;
+        }
+        #account-details h5{
+            width: 24.5vw;
+        }
+        #account-details input{
+            width: 25vw;
+            color: white;
+            background-color: transparent;
+            border: 1px solid white;
+        }
+        #account-details input:disabled{
+            width: 25vw;
+            color: white;
+            background-color: transparent;
             border: none;
         }
         #account-details a{
@@ -131,8 +149,14 @@
             font-weight: 600;
         }
         #statistics-section .btn{
+            width: max-content;
             margin-top: -100px;
-            margin-left: 80vw;
+            position: absolute;
+            right: 10%;
+            background-color: #2CCCFF;
+            color: white;
+            font-weight: 500;
+            border: none;
         }
         #anime-list-section #anime-selection .btn{
             width: 120px;
@@ -157,22 +181,31 @@
             height: 3rem;
             vertical-align: middle;
         }
+        #anime-list-table tr td:first-child {
+            width: 80px !important;
+            text-align: center;
+        }
         #anime-list-table img{
-            width: 60px;
-            height: 90px;
+            max-width: 80px;
+            height: 120px;
         }
         #anime-list-table .btn {
             width: 120px;
             color: white;
-            background-color: #2CCCFF; /* Optional button background color */
+            background-color: #2CCCFF;
             border: none;
         }
 
         #anime-list-table .btn:hover {
-            background-color: #1C8EDB; /* Optional hover background color */
+            background-color: #1C8EDB;
         }
-
-
+        .page-link.active, .active>.page-link{
+            background-color: #2CCCFF;
+            border: #2CCCFF;
+        }
+        .page-link:focus{
+            box-shadow: 0 0 0 .25rem rgba(44, 204, 255, .25)
+        }
     </style>
 </head>
 <body class="mx-auto text-white">

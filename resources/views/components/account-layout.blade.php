@@ -46,8 +46,8 @@
 <body class="mx-auto text-white">
     <nav class="navbar d-flex justify-content-end">
         <div>
-            <button type="button" class="btn justify-content-end">
-                <a href="{{ route('welcome') }}">Search</a>
+            <button type="button" class="btn justify-content-end" onclick="location.href='{{ route('welcome') }}'">
+                Search
             </button>
         </div>
     </nav>

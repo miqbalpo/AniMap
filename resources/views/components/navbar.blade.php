@@ -18,8 +18,7 @@
         font-weight: 500;
         border: none;
     }
-    a{
-        text-decoration: none;
+    .navbar .btn{
         color: white;
         font-weight: 600;
     }
@@ -49,11 +48,9 @@
 <nav class="navbar d-flex">
     <h3 class="app-name">AniMap</h3>
     <div class="justify-content-end">
-        {{-- <button type="button" class="btn">
-            <a href="{{ route('register') }}">Register</a>
+        {{-- <button type="button" class="btn" onclick="location.href='{{ route('register') }}'">Register
         </button>
-        <button type="button" class="btn">
-            <a href="{{ route('login') }}">Login</a>
+        <button type="button" class="btn" onclick="location.href='{{ route('login') }}'">Login
         </button> --}}
 
         <img src="https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5e7ef2ba-3c04-472a-adfa-b191c870b40e/anim=false,width=450/32455-29506324-(best%20quality,%20masterpiece_1.2),%201girl,%20solo,%20anime,%20anime%20screencap,%20%20ray%20tracing,%20global%20illumination,%20ultra%20resolution%20image,.jpeg" alt="">
