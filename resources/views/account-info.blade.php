@@ -6,38 +6,35 @@
             <h1 class="mb-4 fw-semibold text-center">Account Information</h1>
             <div class="d-flex bg-transparent">
                 <div id="profile-picture">
-                    <img src="https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5e7ef2ba-3c04-472a-adfa-b191c870b40e/anim=false,width=450/32455-29506324-(best%20quality,%20masterpiece_1.2),%201girl,%20solo,%20anime,%20anime%20screencap,%20%20ray%20tracing,%20global%20illumination,%20ultra%20resolution%20image,.jpeg" class="card-img-top" alt="...">
+                    <img src="{{Auth::user()-> profile_pic}}" class="card-img-top" alt="...">
                     <button type="button" class="profile-pic-btn btn mt-3" disabled>
                         <a href="#">Change Profile Picture</a>
                     </button>
                 </div>
                 <div id="account-details" class="text-start">
                     <div class="d-flex mb-4 ms-4 bg-transparent">
-                        <h2 class="ms-4 fw-semibold">Name</h2>
-                        <input type="text" class="fs-5 fw-medium my-auto text-end form-control" placeholder="username" aria-label="Username" aria-describedby="basic-addon1" value="Yu Takasaki" disabled>
+                        <h2 class="ms-4 fw-semibold">Username</h2>
+                        <input type="text" class="fs-5 fw-medium my-auto text-end form-control" placeholder="username" aria-label="Username" aria-describedby="basic-addon1" value="{{Auth::user()-> name}}" disabled>
                     </div>
                     <div class="d-flex mb-4 ms-4 bg-transparent">
                         <h2 class="ms-4 fw-semibold">Email</h2>
-                        <input type="email" class="fs-5 fw-medium my-auto text-end form-control" placeholder="email" aria-label="Username" aria-describedby="basic-addon1" value="admin@gmail.com" disabled>
+                        <input type="email" class="fs-5 fw-medium my-auto text-end form-control" placeholder="email" aria-label="Username" aria-describedby="basic-addon1" value="{{Auth::user()-> email}}" disabled>
                     </div>
                     <div class="d-flex mb-5 ms-4 bg-transparent">
                         <h2 class="ms-4 fw-semibold">Joined On</h2>
-                        <h5 class="my-auto text-end">7 September 2003</h5>
+                        <h5 class="my-auto text-end">{{Auth::user()-> created_at}}</h5>
                     </div>
                     <div class="d-flex ms-4 bg-transparent justify-content-end">
-                        {{-- <button type="button" class="btn mx-1">
-                            <a href="#">Edit Profile</a>
+                        <button type="button" class="btn mx-1" onclick="">Edit Profile
                         </button>
-                        <button type="button" class="btn mx-1">
-                            <a href="#">Logout</a>
-                        </button> --}}
+                        <button type="button" class="btn mx-1" onclick="location.href='{{ route('logout') }}'">Logout</button>
 
-                        <button type="button" class="btn mx-1">
+                        {{-- <button type="button" class="btn mx-1">
                             <a href="#">Save Changes</a>
                         </button>
                         <button type="button" class="btn mx-1">
                             <a href="#">Cancel</a>
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
             </div>

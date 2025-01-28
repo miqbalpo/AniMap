@@ -119,6 +119,9 @@
             font-weight: 500;
             border: none;
         }
+        #profile-picture img{
+            object-fit: cover;
+        }
         #profile-picture button{
             width: 100%;
         }
@@ -143,7 +146,7 @@
             background-color: transparent;
             border: none;
         }
-        #account-details a{
+        #account-details button{
             text-decoration: none;
             color: white;
             font-weight: 600;

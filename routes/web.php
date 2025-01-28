@@ -1,18 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
+// Page Routes
 Route::get('/', function () {
     return view('welcome', ['title' => 'Welcome to AniMap']);
 })->name('welcome');
-
-Route::get('/login', function () {
-    return view('login', ['title'=> 'Login']);
-})->name('login');
-
-Route::get('/register', function () {
-    return view('register', ['title'=> 'Login']);
-})->name('register');
 
 Route::get('/search-results', function () {
     return view('search-results', ['title' => 'Anime Search']);
@@ -30,7 +25,25 @@ Route::get('/anime-list', function () {
     return view('anime-list', ['title' => 'My Anime List']);
 })->name('anime-list');
 
-Route::get('/test', function () {
-    return view('test');
-})->name('test');
+
+
+// Login route
+Route::get('/login', function () {
+    return view('login', ['title' => 'Login to AniMap']);
+})->name('login');
+
+Route::post('/login/submit', [LoginController::class, 'login'])->name('login.submit');
+
+
+
+// Register Controller
+Route::get('/register', function () {
+    return view('register', ['title'=> 'Sign Up to AniMap']);
+})->name('register');
+Route::post('/register/create-account', [RegisterController::class, 'register'])->name('register.create-account');
+
+
+// Logout Route
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
 

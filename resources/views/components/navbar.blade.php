@@ -48,19 +48,26 @@
 <nav class="navbar d-flex">
     <h3 class="app-name">AniMap</h3>
     <div class="justify-content-end">
-        {{-- <button type="button" class="btn" onclick="location.href='{{ route('register') }}'">Register
+
+    @guest
+        <button type="button" class="btn" onclick="location.href='{{ route('register') }}'">Register
         </button>
         <button type="button" class="btn" onclick="location.href='{{ route('login') }}'">Login
-        </button> --}}
+        </button>
+    @endguest
 
-        <img src="https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5e7ef2ba-3c04-472a-adfa-b191c870b40e/anim=false,width=450/32455-29506324-(best%20quality,%20masterpiece_1.2),%201girl,%20solo,%20anime,%20anime%20screencap,%20%20ray%20tracing,%20global%20illumination,%20ultra%20resolution%20image,.jpeg" alt="">
-        <button type="button" class="btn-dropdown dropdown-toggle ms-auto fw-semibold" data-bs-toggle="dropdown" aria-expanded="false">Yu Takasaki</button>
+    @auth
+        <img src="{{Auth::user()->profile_pic}}" alt="">
+        <button type="button" class="btn-dropdown dropdown-toggle ms-auto fw-semibold" data-bs-toggle="dropdown" aria-expanded="false">{{Auth::user()->name}}
+        </button>
         <ul class="account-menu dropdown-menu justify-content-end position-absolute">
             <li><a class="dropdown-item" href="{{ route('welcome') }}">Home</a></li>
             <li><a class="dropdown-item" href="{{ route('account-info') }}">Profile</a></li>
             <li><a class="dropdown-item" href="anime-list">My Anime List</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
         </ul>
+    @endauth
+
     </div>
 </nav>
 
