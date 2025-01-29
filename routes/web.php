@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AccountController;
 
 // Page Routes
 Route::get('/', function () {
@@ -47,3 +48,11 @@ Route::post('/register/create-account', [RegisterController::class, 'register'])
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
+//Update Profile Route
+Route::get('/edit-profile', function () {
+    return view('edit-profile', ['title' => 'Edit Profile']);
+})->name('edit-profile');
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/edit-profile/save-info', [AccountController::class, 'edit'])->name('account.save-info');
+});

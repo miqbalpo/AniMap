@@ -9,8 +9,10 @@
     </div>
 
     @guest
-        <h2 class="text-center fw-semibold">login woe</h2>
 
+        <div class="row justify-content-center d-block mt-5" style="height: 60vh;">
+            <h2 class="text-center fw-semibold" style="height: max-content;">Nothing to Show Here...</h2>
+            <h4 class="text-center fw-semibold">Sign Up to Get Your Own Anime Recommendations</h4>
         </div>
     @endguest
 

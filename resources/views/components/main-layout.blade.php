@@ -104,15 +104,15 @@
         #videos-section{
             width: 50vw;
         }
-        #account-info-section{
+        #account-info-section, #account-edit-section{
             width: 60vw;
         }
-        #account-info-section img{
+        #account-info-section img, #account-edit-section img{
             border-radius: 5px;
             width: 160px;
             height: 240px;
         }
-        #account-info-section button{
+        #account-info-section button, #account-edit-section button{
             width: max-content;
             background-color: #2CCCFF;
             color: white;

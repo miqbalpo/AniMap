@@ -1,3 +1,10 @@
+<?php
+    $profile_pic = Auth::user()-> profile_pic;
+    $username = Auth::user()-> name;
+    $email = Auth::user()-> email;
+    $created_at = Auth::user()->created_at->format('d F Y');
+?>
+
 <x-main-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-search-layout></x-search-layout>
@@ -5,35 +12,30 @@
         <div id="account-info-section" class="mx-auto mb-5">
             <h1 class="mb-4 fw-semibold text-center">Account Information</h1>
             <div class="d-flex bg-transparent">
-                <div id="profile-picture">
-                    <img src="{{Auth::user()-> profile_pic}}" class="card-img-top" alt="...">
-                    <button type="button" class="profile-pic-btn btn mt-3" disabled>
-                        <a href="#">Change Profile Picture</a>
-                    </button>
+                <div id="profile-picture" class="mb-3">
+                    <img src="{{ $profile_pic }}" class="card-img-top" alt="...">
                 </div>
                 <div id="account-details" class="text-start">
                     <div class="d-flex mb-4 ms-4 bg-transparent">
                         <h2 class="ms-4 fw-semibold">Username</h2>
-                        <input type="text" class="fs-5 fw-medium my-auto text-end form-control" placeholder="username" aria-label="Username" aria-describedby="basic-addon1" value="{{Auth::user()-> name}}" disabled>
+                        <input type="text" class="fs-5 fw-medium my-auto text-end form-control" placeholder="username" aria-label="Username" aria-describedby="basic-addon1" value="{{ $username }}" disabled>
                     </div>
                     <div class="d-flex mb-4 ms-4 bg-transparent">
                         <h2 class="ms-4 fw-semibold">Email</h2>
-                        <input type="email" class="fs-5 fw-medium my-auto text-end form-control" placeholder="email" aria-label="Username" aria-describedby="basic-addon1" value="{{Auth::user()-> email}}" disabled>
+                        <input type="email" class="fs-5 fw-medium my-auto text-end form-control" placeholder="email" aria-label="Username" aria-describedby="basic-addon1" value="{{ $email }}" disabled>
                     </div>
                     <div class="d-flex mb-5 ms-4 bg-transparent">
                         <h2 class="ms-4 fw-semibold">Joined On</h2>
-                        <h5 class="my-auto text-end">{{Auth::user()-> created_at}}</h5>
+                        <h5 class="my-auto text-end">{{ $created_at }}</h5>
                     </div>
                     <div class="d-flex ms-4 bg-transparent justify-content-end">
-                        <button type="button" class="btn mx-1" onclick="">Edit Profile
+                        <button type="button" class="btn mx-1" onclick="location.href='{{ route('edit-profile') }}'">Edit Profile
                         </button>
                         <button type="button" class="btn mx-1" onclick="location.href='{{ route('logout') }}'">Logout</button>
 
-                        {{-- <button type="button" class="btn mx-1">
-                            <a href="#">Save Changes</a>
+                        {{-- <button type="submit" class="btn mx-1">Save Changes
                         </button>
-                        <button type="button" class="btn mx-1">
-                            <a href="#">Cancel</a>
+                        <button type="button" class="btn mx-1">Cancel
                         </button> --}}
                     </div>
                 </div>
