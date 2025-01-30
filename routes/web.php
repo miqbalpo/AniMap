@@ -4,15 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\SearchController;
 
 // Page Routes
 Route::get('/', function () {
     return view('welcome', ['title' => 'Welcome to AniMap']);
 })->name('welcome');
-
-Route::get('/search-results', function () {
-    return view('search-results', ['title' => 'Anime Search']);
-})->name('search-results');
 
 Route::get('/anime-info', function () {
     return view('anime-info', ['title' => 'Anime Search']);
@@ -27,14 +24,12 @@ Route::get('/anime-list', function () {
 })->name('anime-list');
 
 
-
 // Login route
 Route::get('/login', function () {
     return view('login', ['title' => 'Login to AniMap']);
 })->name('login');
 
 Route::post('/login/submit', [LoginController::class, 'login'])->name('login.submit');
-
 
 
 // Register Controller
@@ -56,3 +51,7 @@ Route::get('/edit-profile', function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/edit-profile/save-info', [AccountController::class, 'edit'])->name('account.save-info');
 });
+
+
+//Search Route
+Route::get('/search-results', [SearchController::class, 'browse'])->name('search-results');

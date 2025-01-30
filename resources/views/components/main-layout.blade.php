@@ -17,8 +17,8 @@
         html, body {
             margin: auto;
             overflow-x: hidden;
-            background: linear-gradient(180deg, rgba(28,142,219,1) 10%, rgba(27,38,44,1) 50%);
-            background-attachment: scroll;
+            background: linear-gradient(180deg, rgba(28,142,219,1) 10%, rgba(27,38,44,1) 100%);
+            background-attachment: fixed;
         }
         main {
             width: 90%;
@@ -31,7 +31,7 @@
             width: 50%;
         }
         .search-bar .btn{
-            background-color: #1C8EDB;
+            background-color: #1B262C;
         }
         .search-bar .btn:hover{
             background-color: #1B262C;
@@ -40,7 +40,7 @@
             background-color: #2CCCFF;
         }
         .dropdown .btn{
-            background-color: #1C8EDB;
+            background-color: #1B262C;
         }
         .card {
             border: none;
@@ -56,6 +56,9 @@
         }
         .dropdown-menu a:active{
         background-color: #2CCCFF;
+        }
+        #search-results img{
+            object-fit: cover;
         }
         #overview-section h1{
             width: max-content;
@@ -74,7 +77,6 @@
             background-color: #BBE1FA;
             color: black;
         }
-
         #synopsis-section{
             width: 50vw;
         }

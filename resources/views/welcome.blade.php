@@ -2,15 +2,15 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <h1 class="mb-4 text-center fw-semibold">Welcome to AniMap</h1>
     <div class="container-fluid mb-5">
-        <form class="d-flex search-bar mx-auto" role="search">
-            <input class="form-control me-2" type="search" placeholder="Type to Search" aria-label="Search">
+        <form action="{{ route('search-results') }}" method="GET" class="d-flex search-bar mx-auto" role="search">
+            @csrf
+            <input name="anime_title" class="form-control me-2" type="search" placeholder="Type to Search" aria-label="Search">
             <button class="btn" type="submit">Search</button>
         </form>
     </div>
 
     @guest
-
-        <div class="row justify-content-center d-block mt-5" style="height: 60vh;">
+        <div class="row justify-content-center d-block mt-5" >
             <h2 class="text-center fw-semibold" style="height: max-content;">Nothing to Show Here...</h2>
             <h4 class="text-center fw-semibold">Sign Up to Get Your Own Anime Recommendations</h4>
         </div>
