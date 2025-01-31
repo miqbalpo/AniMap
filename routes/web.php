@@ -5,15 +5,13 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\AnimeController;
 
 // Page Routes
 Route::get('/', function () {
     return view('welcome', ['title' => 'Welcome to AniMap']);
 })->name('welcome');
 
-Route::get('/anime-info', function () {
-    return view('anime-info', ['title' => 'Anime Search']);
-})->name('anime-info');
 
 Route::get('/account-info', function () {
     return view('account-info', ['title' => 'Account Information']);
@@ -55,3 +53,6 @@ Route::middleware(['auth'])->group(function () {
 
 //Search Route
 Route::get('/search-results', [SearchController::class, 'browse'])->name('search-results');
+
+// Anime Info Route
+Route::get('/anime-info/{id}', [AnimeController::class, 'anime_info'])->name('anime-info');

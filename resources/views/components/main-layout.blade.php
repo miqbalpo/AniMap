@@ -17,7 +17,8 @@
         html, body {
             margin: auto;
             overflow-x: hidden;
-            background: linear-gradient(180deg, rgba(28,142,219,1) 10%, rgba(27,38,44,1) 100%);
+            scroll-behavior: smooth;
+            background: linear-gradient(180deg, rgba(28,142,219,1) 15%, rgba(27,38,44,1) 100%);
             background-attachment: fixed;
         }
         main {
@@ -55,17 +56,17 @@
             height: 240px;
         }
         .dropdown-menu a:active{
-        background-color: #2CCCFF;
+        background-color: #1B262C;
         }
         #search-results img{
             object-fit: cover;
         }
         #overview-section h1{
-            width: max-content;
-            font-size: 4rem;
+            width: 75vw;
+            font-size: 2.75rem;
         }
         #overview-section .icon-info:first-child h5{
-            font-size: 3rem;
+            font-size: 2.25rem;
         }
         #overview-section .icon-info h5{
             font-size: 1.5rem;
@@ -84,11 +85,22 @@
             text-align: justify;
         }
         #characters-section, #staff-section, #songs-section{
-            width: 100vw;
+            width: 85vw;
         }
-        #characters-section #characters-list, #staff-section #staff-list{
-            height: 50vh;
+        #characters-section #characters-list, #staff-section #staff-list, #songs-section #op-list, #songs-section #ed-list{
+            min-height: 25vh;
+            max-height: 50vh;
             overflow-y: scroll;
+        }
+        #characters-section #characters-list::-webkit-scrollbar, #staff-section #staff-list::-webkit-scrollbar, #songs-section #op-list::-webkit-scrollbar,  #songs-section #ed-list::-webkit-scrollbar{
+            width: 10px;
+            background: rgba(0, 0, 0, 0.25);
+        }
+        #characters-section #characters-list::-webkit-scrollbar-thumb, #staff-section #staff-list::-webkit-scrollbar-thumb, #songs-section #op-list::-webkit-scrollbar-thumb,  #songs-section #ed-list::-webkit-scrollbar-thumb{
+            background: #BBE1FA;
+        }
+        #songs-section #op-list, #songs-section #ed-list{
+            scrollbar-width: none;
         }
         #characters-section img, #staff-section img{
             width: 60px;

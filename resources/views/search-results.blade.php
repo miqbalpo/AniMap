@@ -76,10 +76,10 @@
             @foreach ($data['data'] as $anime)
                 <div class="card bg-transparent text-white col-4">
                     <div class="card-body bg-transparent ">
-                        <button href="{{ $anime['url'] }}" class="btn btn-primary bg-transparent">
+                        <a href="{{ route('anime-info', ['id' => $anime['mal_id']]) }}" class="btn btn-primary bg-transparent">
                             <img src="{{ $anime['images']['jpg']['image_url'] }}" class="card-img-top" alt="{{ $anime['title'] }}">
                             <h5 class="card-title mt-4 fs-5 text-center">{{ $anime['title'] }}</h5>
-                        </button>
+                        </a>
                     </div>
                 </div>
             @endforeach
