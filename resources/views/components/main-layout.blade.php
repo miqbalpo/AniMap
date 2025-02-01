@@ -92,15 +92,11 @@
         #characters-section #characters-list, #staff-section #staff-list, #songs-section #op-list, #songs-section #ed-list{
             min-height: 25vh;
             max-height: 50vh;
-            overflow-y: scroll;
+            overflow-y: auto;
         }
         #characters-section #characters-list::-webkit-scrollbar, #staff-section #staff-list::-webkit-scrollbar, #songs-section #op-list::-webkit-scrollbar,  #songs-section #ed-list::-webkit-scrollbar{
             width: 10px;
             background: rgba(0, 0, 0, 0.25);
-        }
-        #characters-section #characters-list::-webkit-scrollbar:not(:hover), #staff-section #staff-list::-webkit-scrollbar:not(:hover), #songs-section #op-list::-webkit-scrollbar:not(:hover),  #songs-section #ed-list::-webkit-scrollbar:not(:hover){
-            width: 10px;
-            background: transparent;
         }
         #characters-section #characters-list::-webkit-scrollbar-thumb, #staff-section #staff-list::-webkit-scrollbar-thumb, #songs-section #op-list::-webkit-scrollbar-thumb,  #songs-section #ed-list::-webkit-scrollbar-thumb{
             background: #BBE1FA;
