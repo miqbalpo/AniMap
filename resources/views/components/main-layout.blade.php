@@ -67,6 +67,7 @@
         }
         #overview-section .icon-info:first-child h5{
             font-size: 2.25rem;
+            width: 10rem;
         }
         #overview-section .icon-info h5{
             font-size: 1.5rem;
