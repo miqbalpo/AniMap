@@ -63,10 +63,11 @@
         }
         #overview-section h1{
             width: 75vw;
-            font-size: 2.75rem;
+            font-size: 3rem;
+            text-wrap: wrap;
         }
         #overview-section .icon-info:first-child h5{
-            font-size: 2.25rem;
+            font-size: 2.75rem;
             width: 10rem;
         }
         #overview-section .icon-info h5{
