@@ -125,14 +125,36 @@
             <div id="characters-list" class="row">
                 @foreach ( $charactersData as $char)
                     <div class="characters-info d-flex my-3 col">
-                        <img src="{{ $char['character']['images']['jpg']['image_url'] ?? 'Unknown' }}" class="card-img-top" width="36" height="48" alt="...">
-                        <div class="ms-5 align-center">
-                            <p class="fw-semibold">{{ $char['character']['name'] ?? 'Unknown' }}</p>
-                            <p>{{ $char['role'] ?? 'Unknown' }}</p>
+                        <div class="d-flex">
+                            <img src="{{ $char['character']['images']['jpg']['image_url'] ?? 'Unknown' }}" class="card-img-top" width="36" height="48" alt="...">
+                            <div class="ms-3 align-center">
+                                <p class="fw-semibold mx-auto">{{ $char['character']['name'] ?? 'Unknown' }}</p>
+                                <p class="mx-auto">{{ $char['role'] ?? 'Unknown' }}</p>
+                            </div>
+                        </div>
+
+                        @php
+                            usort($char['voice_actors'], function ($a, $b) {
+                                return ($b['language'] === 'Japanese') - ($a['language'] === 'Japanese');
+                            });
+                        @endphp
+
+                        <div class="d-flex">
+                            @foreach ($char['voice_actors'] as $cast)
+                                <div class="me-3 align-center">
+                                    <p class="fw-semibold mx-auto text-end">{{ $cast['person']['name'] ?? 'Unknown' }}</p>
+                                    <p class="mx-auto text-end">{{ $cast['language'] ?? 'Unknown' }}</p>
+                                </div>
+                                <img src="{{ $cast['person']['images']['jpg']['image_url'] ?? 'Unknown' }}" class="card-img-top" width="36" height="48" alt="...">
+                            @break
+                            @endforeach
                         </div>
                     </div>
                 @endforeach
             </div>
+            {{-- @php
+            dd($cast);
+            @endphp --}}
         </div>
         <div id="staff-section" class="mt-5 ms-4">
             <h1 class="fw-semibold">Staff</h1>

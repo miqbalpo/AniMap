@@ -96,24 +96,40 @@
             width: 10px;
             background: rgba(0, 0, 0, 0.25);
         }
+        #characters-section #characters-list::-webkit-scrollbar:not(:hover), #staff-section #staff-list::-webkit-scrollbar:not(:hover), #songs-section #op-list::-webkit-scrollbar:not(:hover),  #songs-section #ed-list::-webkit-scrollbar:not(:hover){
+            width: 10px;
+            background: transparent;
+        }
         #characters-section #characters-list::-webkit-scrollbar-thumb, #staff-section #staff-list::-webkit-scrollbar-thumb, #songs-section #op-list::-webkit-scrollbar-thumb,  #songs-section #ed-list::-webkit-scrollbar-thumb{
             background: #BBE1FA;
-        }
-        #songs-section #op-list, #songs-section #ed-list{
-            scrollbar-width: none;
         }
         #characters-section img, #staff-section img{
             width: 60px;
             height: 90px;
         }
-        #characters-section p, #staff-section p{
-            width: 20rem;
+        #characters-section .characters-info{
+            width: 43vw;
         }
-        #characters-section .characters-info, #staff-section .staff-info{
+        #characters-section p{
+            width: 10rem;
+            text-wrap: wrap;
+        }
+        #staff-section .staff-info{
             width: 50vw;
         }
+        #staff-section p{
+            width: 20rem;
+        }
+        #songs-section{
+            width: 85.75vw;
+        }
+        #songs-section #op-list, #songs-section #ed-list{
+            width: 100vw;
+            scrollbar-width: 10px;
+            overflow-x: hidden;
+        }
         #songs-section p{
-            width: 40vw;
+            text-wrap: wrap;
         }
         #videos-section{
             width: 50vw;

@@ -53,7 +53,7 @@ class AnimeController extends Controller
         $staffInfo = $staff_response->json();
         $staffData = $staffInfo['data'] ?? [];
 
-        //dd($trailer);
+        //dd($charactersData);
         return view('anime-info', [
             'title' => 'Anime Information',
             'animeTitle' => $title,
