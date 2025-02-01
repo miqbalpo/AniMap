@@ -67,8 +67,8 @@
             text-wrap: wrap;
         }
         #overview-section .icon-info:first-child h5{
+            /* width: 20vw; */
             font-size: 2.75rem;
-            width: 10rem;
         }
         #overview-section .icon-info h5{
             font-size: 1.5rem;

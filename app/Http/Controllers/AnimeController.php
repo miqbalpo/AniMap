@@ -17,7 +17,7 @@ class AnimeController extends Controller
 
         $title = $animeData['title'] ?? 'Unknown';
         $thumbnail = $animeData['images']['jpg']['image_url'] ?? '';
-        $score = $animeData['score'] ?? 'N/A';
+        $score = isset($animeData['score']) ? number_format($animeData['score'], 2) : 'N/A';
         $premiered = isset($animeData['season'], $animeData['year']) ? ucfirst("{$animeData['season']} {$animeData['year']}") : 'Unknown';
         $type = $animeData['type'] ?? 'Unknown';
         $episodes = $animeData['episodes'] ?? 'Unknown';
