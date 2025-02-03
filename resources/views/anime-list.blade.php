@@ -27,7 +27,7 @@
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
-                        {{-- <tr> --}}
+                        <tr>
                             <td>
                                 <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" alt="">
                             </td>
@@ -37,7 +37,7 @@
                             <td>61</td>
                             <td>2011-04-25</td>
                             <td>$320,800</td>
-                            <td><button class="btn" onclick="location.href='{{ route('anime-info') }}'">View Details</button></td>
+                            <td><button class="btn">View Details</button></td>
                         </tr>
                         <tr>
                             <td>
@@ -49,7 +49,7 @@
                             <td>63</td>
                             <td>2011-07-25</td>
                             <td>$170,750</td>
-                            <td><button class="btn" onclick="location.href='{{ route('anime-info') }}'">View Details</button></td>
+                            <td><button class="btn">View Details</button></td>
                         </tr>
                         <tr>
                             <td>
@@ -61,7 +61,7 @@
                             <td>66</td>
                             <td>2009-01-12</td>
                             <td>$86,000</td>
-                            <td><button class="btn" onclick="location.href='{{ route('anime-info') }}'">View Details</button></td>
+                            <td><button class="btn">View Details</button></td>
                         </tr>
                         <tr>
                             <td>
@@ -73,7 +73,7 @@
                             <td>66</td>
                             <td>2009-01-12</td>
                             <td>$86,000</td>
-                            <td><button class="btn" onclick="location.href='{{ route('anime-info') }}'">View Details</button></td>
+                            <td><button class="btn">View Details</button></td>
                         </tr>
                     </tbody>
                 </table>

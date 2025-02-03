@@ -63,7 +63,7 @@
         <ul class="account-menu dropdown-menu justify-content-end position-absolute">
             <li><a class="dropdown-item" href="{{ route('welcome') }}">Home</a></li>
             <li><a class="dropdown-item" href="{{ route('account-info') }}">Profile</a></li>
-            <li><a class="dropdown-item" href="anime-list">My Anime List</a></li>
+            <li><a class="dropdown-item" href="{{ route('anime-list') }}">My Anime List</a></li>
             <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
         </ul>
     @endauth

@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'profile_pic'
+        'profile_pic',
+        'anime_list'
     ];
 
     /**
@@ -32,6 +33,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected $casts = [
+        'anime_list' => 'json', // Ensures Laravel treats it as JSON
     ];
 
     /**

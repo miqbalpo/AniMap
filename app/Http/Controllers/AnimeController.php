@@ -14,7 +14,8 @@ class AnimeController extends Controller
         $info_response = Http::get("https://api.jikan.moe/v4/anime/{$id}/full");
         $animeInfo = $info_response->json();
         $animeData = $animeInfo['data'] ?? [];
-
+        
+        $mal_id = $animeData['mal_id'] ?? 'Unknown';
         $title = $animeData['title'] ?? 'Unknown';
         $thumbnail = $animeData['images']['jpg']['image_url'] ?? '';
         $score = isset($animeData['score']) ? number_format($animeData['score'], 2) : 'N/A';
@@ -56,6 +57,7 @@ class AnimeController extends Controller
         //dd($charactersData);
         return view('anime-info', [
             'title' => 'Anime Information',
+            'mal_id' => $mal_id,
             'animeTitle' => $title,
             'thumbnail' => $thumbnail,
             'score' => $score,

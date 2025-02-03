@@ -15,36 +15,41 @@
                             <h5 class="ms-3 my-auto">{{ $score }}</h5>
                         </div>
                         <div class="icon-info d-flex ms-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-calendar3  my-auto" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-calendar3 my-auto" viewBox="0 0 16 16">
                                 <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z"/>
                                 <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
                             </svg>
-                            <h5 class="ms-3 my-auto">{{ $premiered }}</h5>
+                            <h5 class="ms-2 my-auto">{{ $premiered }}</h5>
                         </div>
                         <div class="icon-info d-flex ms-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-broadcast  my-auto" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-broadcast my-auto" viewBox="0 0 16 16">
                                 <path d="M3.05 3.05a7 7 0 0 0 0 9.9.5.5 0 0 1-.707.707 8 8 0 0 1 0-11.314.5.5 0 0 1 .707.707m2.122 2.122a4 4 0 0 0 0 5.656.5.5 0 1 1-.708.708 5 5 0 0 1 0-7.072.5.5 0 0 1 .708.708m5.656-.708a.5.5 0 0 1 .708 0 5 5 0 0 1 0 7.072.5.5 0 1 1-.708-.708 4 4 0 0 0 0-5.656.5.5 0 0 1 0-.708m2.122-2.12a.5.5 0 0 1 .707 0 8 8 0 0 1 0 11.313.5.5 0 0 1-.707-.707 7 7 0 0 0 0-9.9.5.5 0 0 1 0-.707zM10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0"/>
                             </svg>
-                            <h5 class="ms-3 my-auto">{{ $type }}</h5>
+                            <h5 class="ms-2 my-auto">{{ $type }}</h5>
                         </div>
                         <div class="icon-info d-flex ms-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-film  my-auto" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-film my-auto" viewBox="0 0 16 16">
                                 <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3v2h2V4zm2 3h-2v2h2zm-2 3v2h2v-2zm2 3h-2v2h2z"/>
                             </svg>
-                            <h5 class="ms-3 my-auto">{{ $studios }}</h5>
+                            <h5 class="ms-2 my-auto">{{ $studios }}</h5>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="d-flex btn bg-transparent">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle ms-3" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: max-content;">
+                <div class="btn-group dropdown-center">
+                    <button id="status-button" class="btn btn-secondary" type="button" style="width: 132px; margin-left: -12px; text-wrap: wrap;">
                         Add to List
-                    </button>
+                        <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="width: max-content;">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                        </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" data-mal-id="{{ $mal_id }}" data-status="liked">Liked</a></li>
+                        <li><a class="dropdown-item" data-mal-id="{{ $mal_id }}" data-status="plan_to_watch">Plan to Watch</a></li>
+                        <li><a class="dropdown-item" data-mal-id="{{ $mal_id }}" data-status="currently_watching">Currently Watching</a></li>
+                        <li><a class="dropdown-item" data-mal-id="{{ $mal_id }}" data-status="disliked">Disliked</a></li>
+                        <li><a class="dropdown-item" data-mal-id="{{ $mal_id }}" data-status="wont_watch">Won't Watch</a></li>
                     </ul>
                 </div>
             </div>
@@ -152,9 +157,6 @@
                     </div>
                 @endforeach
             </div>
-            {{-- @php
-            dd($cast);
-            @endphp --}}
         </div>
         <div id="staff-section" class="mt-5 ms-4">
             <h1 class="fw-semibold">Staff</h1>
@@ -163,13 +165,10 @@
                     <div class="staff-info d-flex my-3 col">
                         <img src="{{ $staff['person']['images']['jpg']['image_url'] ?? 'Unknown' }}" class="card-img-top" width="36" height="48" alt="...">
                         <div class="ms-5 align-center">
-                            <p class="fw-semibold">{{ $staff['person']['name'] ?? 'Unknown' }}</p>
-                            <p>{{ is_array($staff['positions']) ? implode(', ', $staff['positions']) : ($staff['positions'] ?? 'Unknown') }}
-                            </p>
+                            <p class="fw-semibold">{{ $staff['person']['name'] ?? 'Unknown' }}</ <p>{{ is_array($staff['positions']) ? implode(', ', $staff['positions']) : ($staff['positions'] ?? 'Unknown') }}</p>
                         </div>
                     </div>
                 @endforeach
-
             </div>
         </div>
         <div id="songs-section" class="mt-5 ms-4">
@@ -192,9 +191,104 @@
         <div id="videos-section" class="my-5 ms-4">
             <h1 class="fw-semibold">Trailer</h1>
             <div>
-                <iframe width="360" height="240" src="https://www.youtube.com/embed/{{ $trailer }}?enablejsapi=1&wmode=opaque&autoplay=0">
-                </iframe>
+                <iframe width="360" height="240" src="https://www.youtube.com/embed/{{ $trailer }}?enablejsapi=1&wmode=opaque&autoplay=0"></iframe>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchCurrentStatus('{{ $mal_id }}');
+
+            document.querySelectorAll(".dropdown-item").forEach(item => {
+                item.addEventListener("click", function (event) {
+                    event.preventDefault();
+
+                    let mal_id = this.getAttribute("data-mal-id");
+                    let status = this.getAttribute("data-status");
+
+                    console.log("mal_id:", mal_id, "status:", status);
+
+                    if (mal_id && status) {
+                        updateAnimeList(mal_id, status);
+                    } else {
+                        console.error("mal_id or status is null");
+                        window.location.href = event.target.href;
+                    }
+                });
+            });
+        });
+
+        function fetchCurrentStatus(mal_id) {
+            fetch(`/anime-list/status/${mal_id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        updateButtonText(data.status);
+                    } else {
+                        console.error("Failed to fetch current status:", data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching current status:", error);
+                });
+        }
+
+        function updateButtonText(status) {
+            const button = document.getElementById('status-button');
+            switch (status) {
+                case 'liked':
+                    button.textContent = 'Liked';
+                    break;
+                case 'plan_to_watch':
+                    button.textContent = 'Plan to Watch';
+                    break;
+                case 'currently_watching':
+                    button.textContent = 'Currently Watching';
+                    break;
+                case 'disliked':
+                    button.textContent = 'Disliked';
+                    break;
+                case 'wont_watch':
+                    button.textContent = "Won't Watch";
+                    break;
+                default:
+                    button.textContent = 'Add to List';
+            }
+        }
+
+        function updateAnimeList(mal_id, status) {
+            fetch('{{ route("anime-list.update") }}', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ mal_id: mal_id, status: status })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        console.error("Error:", errorData.message);
+                        throw new Error(errorData.message);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Success:", data.message);
+                alert("Anime list updated successfully!");
+                updateButtonText(status);
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+                alert("Failed to update anime list. Please try again.");
+            });
+        }
+    </script>
 </x-main-layout>

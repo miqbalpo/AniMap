@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\AnimeController;
+use App\Http\Controllers\BookmarkController;
 
 // Page Routes
 Route::get('/', function () {
@@ -56,3 +57,10 @@ Route::get('/search-results', [SearchController::class, 'browse'])->name('search
 
 // Anime Info Route
 Route::get('/anime-info/{id}', [AnimeController::class, 'anime_info'])->name('anime-info');
+
+// Anime Bookmark Route
+Route::post('/anime-info/update', [BookmarkController::class, 'updateAnimeList'])->name('anime-list.update');
+
+Route::get('/anime-list/status/{mal_id}', [BookmarkController::class, 'getCurrentStatus'])->middleware('auth');
+
+
