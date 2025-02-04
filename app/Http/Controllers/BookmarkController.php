@@ -31,17 +31,17 @@ class BookmarkController extends Controller
             return response()->json(['success' => false, 'message' => 'User  not found'], 404);
         }
 
-        $animeList = is_string($user->anime_list) ? json_decode($user->anime_list, true) : $user->anime_list;
+        $animeList = is_string($user->anime_list) ? json_decode($user->anime_list, true) : ($user->anime_list ?? []);
 
         if (!is_array($animeList)) {
             Log::error('Anime list is not an array', ['anime_list' => $user->anime_list]);
             return response()->json(['success' => false, 'message' => 'Invalid anime list format'], 500);
         }
 
-        if (empty($animeList)) {
-            Log::error('Anime list is empty', ['anime_list' => $animeList]);
-            return response()->json(['success' => false, 'message' => 'Anime list is empty'], 400);
-        }
+        // if (empty($animeList)) {
+        //     Log::error('Anime list is empty', ['anime_list' => $animeList]);
+        //     return response()->json(['success' => false, 'message' => 'Anime list is empty'], 400);
+        // }
 
         $found = false;
         foreach ($animeList as &$anime) {
@@ -88,6 +88,6 @@ class BookmarkController extends Controller
             }
         }
 
-        return response()->json(['success' => true, 'status' => 'default']); 
+        return response()->json(['success' => true, 'status' => 'default']);
     }
 }

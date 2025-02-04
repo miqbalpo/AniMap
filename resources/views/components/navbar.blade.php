@@ -11,7 +11,6 @@
         font-weight: 600;
     }
     .navbar .btn, .btn{
-        /* position: fixed; */
         width: 100px;
         background-color: #1B262C;
         color: white;
@@ -30,6 +29,10 @@
         height: 40px;
         object-fit: cover;
         border-radius: 50%;
+    }
+    .username{
+        max-width: 150px;
+        overflow: hidden;
     }
     .btn-dropdown{
         color: white;
@@ -57,8 +60,12 @@
     @endguest
 
     @auth
-        <img src="{{Auth::user()->profile_pic}}" alt="">
-        <button type="button" class="btn-dropdown dropdown-toggle ms-auto fw-semibold" data-bs-toggle="dropdown" aria-expanded="false">{{Auth::user()->name}}
+        @if (Auth::user()->profile_pic == null)
+            <img src="{{ asset('image/placeholder_pfp.png')}}" alt="">
+        @else
+            <img src="{{Auth::user()->profile_pic}}" alt="">
+        @endif
+        <button type="button" class="username btn-dropdown dropdown-toggle ms-auto fw-semibold" data-bs-toggle="dropdown" aria-expanded="false">{{Auth::user()->name}}
         </button>
         <ul class="account-menu dropdown-menu justify-content-end position-absolute">
             <li><a class="dropdown-item" href="{{ route('welcome') }}">Home</a></li>

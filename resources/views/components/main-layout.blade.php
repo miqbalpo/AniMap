@@ -255,71 +255,8 @@
     <script>
       new DataTable('#anime-list-table');
     </script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     
-    <script type="text/javascript">
-        google.charts.load("current", { packages: ["corechart"] });
-        google.charts.setOnLoadCallback(function () {
-            const chartContainer = document.getElementById("statistics_chart");
-            if (chartContainer) {
-                drawChart();
-            }
-        });
-
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ["Element", "Number of Animes", { role: "style" }],
-                ["Liked", 50, "#2CCCFF"],
-                ["Plan to Watch", 40, "#57F000"],
-                ["Currently Watching", 30, "#FBE83A"],
-                ["Disliked", 20, "color: #FFB302"],
-                ["Won't Watch", 10, "color: #FE3839"],
-            ]);
-
-            var options = {
-                width: 960,
-                height: 500,
-                backgroundColor: "transparent",
-                legend: { position: "none" },
-                bars: "horizontal",
-                axes: {
-                    x: {
-                        0: {
-                            side: "top",
-                            label: "Percentage",
-                            textStyle: {
-                                color: "#FFFFFF",
-                                fontName: "Poppins",
-                            },
-                        },
-                    },
-                },
-                bar: { groupWidth: "50%" },
-                hAxis: {
-                    textStyle: {
-                        color: "#FFFFFF",
-                        fontName: "Poppins",
-                    },
-                },
-                vAxis: {
-                    textStyle: {
-                        color: "#FFFFFF",
-                        fontName: "Poppins",
-                    },
-                },
-                titleTextStyle: {
-                    color: "#FFFFFF",
-                    fontName: "Poppins",
-                    fontSize: 18,
-                },
-            };
-
-            var chart = new google.visualization.BarChart(
-                document.getElementById("statistics_chart")
-            );
-            chart.draw(data, options);
-        }
-    </script>
 </body>
 </html>
 
