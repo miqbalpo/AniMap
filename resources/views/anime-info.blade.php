@@ -165,7 +165,8 @@
                     <div class="staff-info d-flex my-3 col">
                         <img src="{{ $staff['person']['images']['jpg']['image_url'] ?? 'Unknown' }}" class="card-img-top" width="36" height="48" alt="...">
                         <div class="ms-5 align-center">
-                            <p class="fw-semibold">{{ $staff['person']['name'] ?? 'Unknown' }}</ <p>{{ is_array($staff['positions']) ? implode(', ', $staff['positions']) : ($staff['positions'] ?? 'Unknown') }}</p>
+                            <p class="fw-semibold">{{ $staff['person']['name'] ?? 'Unknown' }}</p>
+                            <p>{{ is_array($staff['positions']) ? implode(', ', $staff['positions']) : ($staff['positions'] ?? 'Unknown') }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -282,12 +283,28 @@
             })
             .then(data => {
                 console.log("Success:", data.message);
-                alert("Anime list updated successfully!");
                 updateButtonText(status);
+                Swal.fire({
+                    title: "Success",
+                    text: "Anime added to your list!",
+                    icon: "success",
+                    iconColor: "#57F000",
+                    confirmButtonColor: "#2CCCFF",
+                });
             })
             .catch(error => {
                 console.error("Fetch error:", error);
-                alert("Failed to update anime list. Please try again.");
+                Swal.fire({
+                    title: "Failed",
+                    text: "Sign in first to continue.",
+                    icon: "warning",
+                    iconColor: "#FE3839",
+                    confirmButtonColor: "#2CCCFF",
+                    confirmButtonText: "Login",
+                    preConfirm: () => {
+                        window.location.href = '/login';
+                    }
+                });
             });
         }
     </script>

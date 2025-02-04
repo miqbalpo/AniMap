@@ -32,7 +32,7 @@
     }
     .username{
         max-width: 150px;
-        overflow: hidden;
+        word-wrap: break-word;
     }
     .btn-dropdown{
         color: white;
@@ -63,7 +63,7 @@
         @if (Auth::user()->profile_pic == null)
             <img src="{{ asset('image/placeholder_pfp.png')}}" alt="">
         @else
-            <img src="{{Auth::user()->profile_pic}}" alt="">
+            <img src="/{{Auth::user()->profile_pic}}" alt="">
         @endif
         <button type="button" class="username btn-dropdown dropdown-toggle ms-auto fw-semibold" data-bs-toggle="dropdown" aria-expanded="false">{{Auth::user()->name}}
         </button>

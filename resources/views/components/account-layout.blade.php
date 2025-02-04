@@ -54,5 +54,7 @@
     <main class="mx-auto">
         {{ $slot }}
     </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

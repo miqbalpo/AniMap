@@ -20,7 +20,6 @@ class BookmarkController extends Controller
 
         if (!Auth::check()) {
             Log::error('User  not authenticated');
-            redirect('/login')->with('failed', 'Sign in to Bookmark Anime');
         }
 
         $userId = Auth::id();

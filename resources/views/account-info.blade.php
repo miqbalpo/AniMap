@@ -24,7 +24,7 @@
                     @if ( $profile_pic == null)
                         <img src="{{ asset('image/placeholder_pfp.png')}}"class="card-img-top" alt="...">
                     @else
-                        <img src="{{ $profile_pic }}" alt="" class="card-img-top" alt="...">
+                        <img src="/{{ $profile_pic }}" alt="" class="card-img-top" alt="...">
                     @endif
                 </div>
                 <div id="account-details" class="text-start">

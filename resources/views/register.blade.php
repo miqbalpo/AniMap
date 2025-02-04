@@ -15,11 +15,7 @@
             <label for="password-input" class="form-label">Password</label>
             <input type="password" name="password" class="form-control border-info" minlength="8" required>
         </div>
-        {{-- <div class="mb-4">
-            <label for="confirm-password-input" class="form-label">Confirm Password</label>
-            <input type="password" name="confirm-password" class="form-control border-info">
-        </div> --}}
-            <div class="mb-4">
+        <div class="mb-4">
             <label for="image-input" class="form-label">Select a Profile Picture</label>
             <input type="file" name="profile_pic" accept="image/png, image/jpg, image/jpeg" class="form-control border-info">
         </div>
@@ -28,4 +24,37 @@
     <p class="mt-4 text-center">
         Already have an account? <a class="link-opacity-100 fw-bold" href="#" style="color: #BBE1FA;">Click here to login</a>
     </p>
+
+    <script>
+        const successMessage = "{{ session('success') }}";
+        const errorMessage = "{{ session('errors') }}";
+
+        window.onload = function() {
+            if (successMessage) {
+                console.log('Account creation successful:', successMessage);
+                Swal.fire({
+                    title: "Success",
+                    text: "Account has been created!",
+                    icon: "success",
+                    iconColor: "#57F000",
+                    confirmButtonColor: "#2CCCFF",
+                    preConfirm: () => {
+                        window.location.href = '/login';
+                    }
+                });
+            }
+
+            if (errorMessage) {
+                console.log('Account creation failed:', errorMessage);
+                Swal.fire({
+                    title: "Error",
+                    text: errorMessage,
+                    icon: "warning",
+                    iconColor: "#FE3839",
+                    confirmButtonColor: "#2CCCFF"
+                });
+            }
+        };
+    </script>
+
 </x-account-layout>

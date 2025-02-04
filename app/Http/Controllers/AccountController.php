@@ -72,6 +72,6 @@ class AccountController extends Controller
             'profile_pic' => $profilePicPath
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 }

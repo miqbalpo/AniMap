@@ -15,7 +15,7 @@
                 @csrf
                 <div class="d-flex bg-transparent">
                     <div id="profile-picture">
-                        <img id="profile-pic" src="{{ $profile_pic }}" class="card-img-top" alt="Profile Picture">
+                        <img id="profile-pic" src="/{{ $profile_pic }}" class="card-img-top" alt="Profile Picture">
                         <input type="file" name="profile_pic" accept="image/png, image/jpg, image/jpeg" class="d-none" id="file-input" onchange="previewImage(event)">
                         <button type="button" class="profile-pic-btn btn mt-3" onclick="document.getElementById('file-input').click();">
                             Change Profile Picture
@@ -37,7 +37,7 @@
                         <div class="d-flex ms-4 bg-transparent justify-content-end">
                             <button type="submit" class="btn mx-1">Save Changes
                             </button>
-                            <button type="button" class="btn mx-1" onclick="location.href='{{ route('account-info') }}'">Cancel
+                            <button type="button" class="btn mx-1" onclick="location.href='{{ route('account-info') }}'">Back
                             </button>
                         </div>
                     </div>
@@ -61,7 +61,33 @@
                 reader.readAsDataURL(file);
             }
         }
+
+        const successMessage = "{{ session('success') }}";
+        const errorMessage = "{{ session('error') }}";
+
+        window.onload = function() {
+            if (successMessage) {
+                Swal.fire({
+                    title: "Success",
+                    text: "Account has been updated!",
+                    icon: "success",
+                    iconColor: "#57F000",
+                    confirmButtonColor: "#2CCCFF",
+                    preConfirm: () => {
+                        window.location.href = '/account-info';
+                    }
+                });
+            }
+            if (errorMessage) {
+                Swal.fire({
+                    title: "Error",
+                    text: "Account failed to be updated.",
+                    icon: "warning",
+                    iconColor: "#FE3839",
+                    confirmButtonColor: "#2CCCFF",
+                    confirmButtonText: "Ok"
+                });
+            }
+        };
     </script>
-
-
 </x-main-layout>
