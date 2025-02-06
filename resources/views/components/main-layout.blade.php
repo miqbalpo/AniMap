@@ -190,14 +190,25 @@
             font-weight: 500;
             border: none;
         }
-        #anime-list-section #anime-selection .btn{
+        #anime-list-section #anime-selection .btn {
             width: 120px;
             height: 60px;
             background-color: transparent;
             border-radius: 0;
             border-bottom: 2px solid white;
+            color: white;
+            transition: background-color 0.3s;
         }
-        #anime-list-section #anime-selection .btn:active{
+
+        #anime-list-section #anime-selection .btn.active {
+            background-color: #2CCCFF;
+        }
+
+        #anime-list-section #anime-selection .btn:hover {
+            background-color: rgba(44, 204, 255, 0.2);
+        }
+
+        #anime-list-section #anime-selection .btn:active {
             background-color: #2CCCFF;
         }
         #anime-list-table {
@@ -214,12 +225,16 @@
             vertical-align: middle;
         }
         #anime-list-table tr td:first-child {
-            width: 80px !important;
+            width: 80px;
             text-align: center;
         }
+        #anime-list-table tr td:not(:nth-child(2)){
+            text-align: justify;
+        }
         #anime-list-table img{
-            max-width: 80px;
+            width: 80px;
             height: 120px;
+            border-radius: 5px;
         }
         #anime-list-table .btn {
             width: 120px;
@@ -246,19 +261,7 @@
         {{ $slot }}
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-      new DataTable('#anime-list-table');
-    </script>
-
-
 </body>
 </html>
 

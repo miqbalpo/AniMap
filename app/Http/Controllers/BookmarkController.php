@@ -15,11 +15,12 @@ class BookmarkController extends Controller
 
         $request->validate([
             'mal_id' => 'required|integer',
-            'status' => 'required|string|in:liked,plan_to_watch,currently_watching,disliked,wont_watch'
+            'status' => 'required|string|in:liked,plan_to_watch,currently_watching,disliked,wont_watch,unwatched'
         ]);
 
         if (!Auth::check()) {
             Log::error('User  not authenticated');
+            return response()->json(['success' => false, 'message' => 'User  not authenticated'], 401);
         }
 
         $userId = Auth::id();
@@ -37,23 +38,30 @@ class BookmarkController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid anime list format'], 500);
         }
 
-        // if (empty($animeList)) {
-        //     Log::error('Anime list is empty', ['anime_list' => $animeList]);
-        //     return response()->json(['success' => false, 'message' => 'Anime list is empty'], 400);
-        // }
+        // Check if the status is "unwatched"
+        if ($request->status === 'unwatched') {
+            // Remove the anime from the list
+            $animeList = array_filter($animeList, function ($anime) use ($request) {
+                return $anime['mal_id'] !== $request->mal_id;
+            });
+        } else {
+            // Update the status of the anime
+            $found = false;
+            foreach ($animeList as &$anime) {
+                if (isset($anime['mal_id']) && $anime['mal_id'] == $request->mal_id) {
+                    $anime['status'] = $request->status;
+                    $found = true;
+                    break;
+                }
+            }
 
-        $found = false;
-        foreach ($animeList as &$anime) {
-            if (isset($anime['mal_id']) && $anime['mal_id'] == $request->mal_id) {
-                $anime['status'] = $request->status;
-                $found = true;
-                break;
+            // If not found, add it to the list
+            if (!$found) {
+                $animeList[] = ['mal_id' => $request->mal_id, 'status' => $request->status];
             }
         }
 
-        if (!$found) {
-            $animeList[] = ['mal_id' => $request->mal_id, 'status' => $request->status];
-        }
+        // Update the user's anime list
         $user->anime_list = $animeList;
 
         try {

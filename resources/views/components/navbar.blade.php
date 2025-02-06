@@ -32,7 +32,6 @@
     }
     .username{
         max-width: 150px;
-        word-wrap: break-word;
     }
     .btn-dropdown{
         color: white;
@@ -65,7 +64,7 @@
         @else
             <img src="/{{Auth::user()->profile_pic}}" alt="">
         @endif
-        <button type="button" class="username btn-dropdown dropdown-toggle ms-auto fw-semibold" data-bs-toggle="dropdown" aria-expanded="false">{{Auth::user()->name}}
+        <button type="button" class="username btn-dropdown ms-auto fw-semibold text-truncate" data-bs-toggle="dropdown" aria-expanded="false">{{Auth::user()->name}}
         </button>
         <ul class="account-menu dropdown-menu justify-content-end position-absolute">
             <li><a class="dropdown-item" href="{{ route('welcome') }}">Home</a></li>

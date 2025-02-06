@@ -54,7 +54,6 @@ class AccountController extends Controller
 
         $request->validate([
             'username' => 'string|min:5',
-            //'email' => 'string|email|max:255',
             'email' => 'string|email|max:255|unique:users,email,' . Auth::id(),
             'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
         ]);

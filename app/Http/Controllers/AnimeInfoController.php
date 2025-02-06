@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class AnimeController extends Controller
+class AnimeInfoController extends Controller
 {
     //
     public function anime_info($id)
@@ -14,7 +14,7 @@ class AnimeController extends Controller
         $info_response = Http::get("https://api.jikan.moe/v4/anime/{$id}/full");
         $animeInfo = $info_response->json();
         $animeData = $animeInfo['data'] ?? [];
-        
+
         $mal_id = $animeData['mal_id'] ?? 'Unknown';
         $title = $animeData['title'] ?? 'Unknown';
         $thumbnail = $animeData['images']['jpg']['image_url'] ?? '';

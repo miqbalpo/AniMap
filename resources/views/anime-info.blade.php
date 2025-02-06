@@ -50,6 +50,7 @@
                         <li><a class="dropdown-item" data-mal-id="{{ $mal_id }}" data-status="currently_watching">Currently Watching</a></li>
                         <li><a class="dropdown-item" data-mal-id="{{ $mal_id }}" data-status="disliked">Disliked</a></li>
                         <li><a class="dropdown-item" data-mal-id="{{ $mal_id }}" data-status="wont_watch">Won't Watch</a></li>
+                        <li><a class="dropdown-item" data-mal-id="{{ $mal_id }}" data-status="unwatched">Unwatched</a></li>
                     </ul>
                 </div>
             </div>
@@ -295,8 +296,8 @@
             .catch(error => {
                 console.error("Fetch error:", error);
                 Swal.fire({
-                    title: "Failed",
-                    text: "Sign in first to continue.",
+                    title: "Sign-in Required",
+                    text: "Sign in first to complete this action.",
                     icon: "warning",
                     iconColor: "#FE3839",
                     confirmButtonColor: "#2CCCFF",
