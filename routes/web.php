@@ -18,14 +18,12 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('login', ['title' => 'Login to AniMap']);
 })->name('login');
-
 Route::post('/login/submit', [LoginController::class, 'login'])->name('login.submit');
 
 // Register Controller
 Route::get('/register', function () {
     return view('register', ['title'=> 'Sign Up to AniMap']);
 })->name('register');
-
 Route::post('/register/create-account', [RegisterController::class, 'register'])->name('register.create-account');
 
 
@@ -33,18 +31,15 @@ Route::post('/register/create-account', [RegisterController::class, 'register'])
 Route::middleware(['auth'])->group(function () {
     // Anime Bookmark Route
     Route::post('/anime-info/update', [BookmarkController::class, 'updateAnimeList'])->name('anime-list.update');
-
+    //Account Info Route
     Route::get('/account-info', [AccountController::class, 'account_info'])->name('account-info');
-
     Route::post('/edit-profile/save-info', [AccountController::class, 'edit'])->name('account.save-info');
-
     Route::get('/edit-profile', function () {
         return view('edit-profile', ['title' => 'Edit Profile']);
     })->name('edit-profile');
-
-    // Update the anime list route to use the AnimeListController
+    // Anime List Route
     Route::get('/anime-list', [AnimeListController::class, 'index'])->name('anime-list');
-
+    // Logout Route
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
@@ -53,7 +48,6 @@ Route::get('/search-results', [SearchController::class, 'browse'])->name('search
 
 // Anime Info Route
 Route::get('/anime-info/{id}', [AnimeInfoController::class, 'anime_info'])->name('anime-info');
-
 Route::get('/anime-list/status/{mal_id}', [BookmarkController::class, 'getCurrentStatus'])->middleware('auth');
 
 
