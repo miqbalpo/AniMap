@@ -33,10 +33,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/anime-info/update', [BookmarkController::class, 'updateAnimeList'])->name('anime-list.update');
     //Account Info Route
     Route::get('/account-info', [AccountController::class, 'account_info'])->name('account-info');
-    Route::post('/edit-profile/save-info', [AccountController::class, 'edit'])->name('account.save-info');
     Route::get('/edit-profile', function () {
         return view('edit-profile', ['title' => 'Edit Profile']);
     })->name('edit-profile');
+    Route::post('/edit-profile/save-info', [AccountController::class, 'edit'])->name('account.save-info');
     // Anime List Route
     Route::get('/anime-list', [AnimeListController::class, 'index'])->name('anime-list');
     // Logout Route
