@@ -59,6 +59,10 @@
         .dropdown-menu a:active{
         background-color: #1B262C;
         }
+        #anime-filters .dropdown .dropdown-menu{
+            max-height: 200px;
+            overflow-y: scroll;
+        }
         #search-results img{
             object-fit: cover;
         }
