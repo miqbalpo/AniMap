@@ -8,6 +8,9 @@
             <input type="hidden" name="genre" id="selected-genre" value="{{ old('genre', $oldGenre) }}">
             <input type="hidden" name="min_score" id="min-score" value="{{ old('min_score', $minScore) }}">
             <input type="hidden" name="max_score" id="max-score" value="{{ old('max_score', $maxScore) }}">
+            <input type="hidden" name="type" id="selected-type" value="{{ old('type', $oldType) }}">
+            <input type="hidden" name="rating" id="selected-rating" value="{{ old('rating', $oldRating) }}">
+            <input type="hidden" name="year" id="selected-year" value="{{ old('year', $oldYear) }}">
             <button class="btn" type="submit">Search</button>
         </form>
     </div>
@@ -15,7 +18,7 @@
         <p class="fw-semibold my-auto">Search By:</p>
         <div id="genre-dropdown" class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: max-content;">
-                {{ $oldGenre ? $oldGenre : 'Genre' }} <!-- Use oldGenre directly -->
+                {{ $oldGenre ? $oldGenre : 'Genre' }}
             </button>
             <ul class="dropdown-menu">
                 <li>
@@ -31,49 +34,60 @@
             </ul>
         </div>
 
+        <div id="score-dropdown" class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: max-content;">
+                {{ $oldScore ? $oldScore : 'Score' }}
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" onclick="setScore('', '')">Score</a></li> <!-- Default option to reset score -->
+                <li><a class="dropdown-item" onclick="setScore('8.00', '10.00')">10.0 - 8.00</a></li>
+                <li><a class="dropdown-item" onclick="setScore('6.00', '7.99')">7.99 - 6</a></li>
+                <li><a class="dropdown-item" onclick="setScore('3.00', '5.99')">5.99 - 3.00</a></li>
+                <li><a class="dropdown-item" onclick="setScore(null, '2.99')">&lt; 2.99</a></li>
+            </ul>
+        </div>
+
+        <div id="type-dropdown" class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: max-content;">
+                {{ $oldType ? ucfirst($oldType) : 'Type' }}
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" onclick="setType('')">Type</a></li>
+                <li><a class="dropdown-item" onclick="setType('tv', 'TV Series')">TV Series</a></li>
+                <li><a class="dropdown-item" onclick="setType('movie', 'Movie')">Movie</a></li>
+                <li><a class="dropdown-item" onclick="setType('ova', 'OVA')">OVA</a></li>
+                <li><a class="dropdown-item" onclick="setType('special', 'Special')">Special</a></li>
+                <li><a class="dropdown-item" onclick="setType('ona', 'ONA')">ONA</a></li>
+                <li><a class="dropdown-item" onclick="setType('music', 'Music')">Music</a></li>
+                <li><a class="dropdown-item" onclick="setType('cm', 'Commercial')">Commercial</a></li>
+                <li><a class="dropdown-item" onclick="setType('pv', 'Promotional Video')">Promotional Video</a></li>
+                <li><a class="dropdown-item" onclick="setType('tv_special', 'TV Special')">TV Special</a></li>
+            </ul>
+        </div>
+
         <div id="rating-dropdown" class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: max-content;">
-                {{ $oldRating ? $oldRating : 'Rating' }} <!-- Use oldRating directly -->
+                {{ $oldRating ? ucfirst($oldRating) : 'Rating' }}
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#" onclick="setRating('', '')">Rating</a></li> <!-- Default option to reset rating -->
-                <li><a class="dropdown-item" onclick="setRating('8.00', '10.00')">10.0 - 8.00</a></li>
-                <li><a class="dropdown-item" onclick="setRating('6.00', '7.99')">7.99 - 6</a></li>
-                <li><a class="dropdown-item" onclick="setRating('3.00', '5.99')">5.99 - 3.00</a></li>
-                <li><a class="dropdown-item" onclick="setRating(null, '2.99')">&lt; 2.99</a></li>
-            </ul>
-        </div>
-
-        <div id="theme-dropdown" class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: max-content;">
-                Theme
-            </button>
-            <ul class="dropdown-menu">
-                <!-- Theme options go here -->
-            </ul>
-        </div>
-
-        <div id="demography-dropdown" class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: max-content;">
-                Demography
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#" demography="">Josei</a></li>
-                <li><a class="dropdown-item" href="#" demography="">Kids</a></li>
-                <li><a class="dropdown-item" href="#" demography="">Seinen</a></li>
-                <li><a class="dropdown-item" href="#" demography="">Shoujo</a></li>
-                <li><a class="dropdown-item" href="#" demography="">Shounen</a></li>
+                <li><a class="dropdown-item" onclick="setRating('', 'Rating')">Rating</a></li>
+                <li><a class="dropdown-item" onclick="setRating('g', 'All Ages')">All Ages</a></li>
+                <li><a class="dropdown-item" onclick="setRating('pg', 'Children')">Children</a></li>
+                <li><a class="dropdown-item" onclick="setRating('pg13', 'Teens (13 or older)')">Teens (13 or older)</a></li>
+                <li><a class="dropdown-item" onclick="setRating('r17', 'Violence & Profanity')">Violence & Profanity</a></li>
+                <li><a class="dropdown-item" onclick="setRating('r', 'Mild Nudity')">Mild Nudity</a></li>
+                <li><a class="dropdown-item" onclick="setRating('rx', 'Hentai')">Hentai</a></li>
             </ul>
         </div>
 
         <div id="year-dropdown" class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: max-content;">
-               Year
+                {{ $oldYear ? $oldYear : 'Year' }}
             </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#" year="">2025</a></li>
-                <li><a class="dropdown-item" href="#" year="">2024</a></li>
-                <li><a class="dropdown-item" href="#" year="">2023</a></li>
+            <ul class="dropdown-menu" id="year-dropdown-menu">
+                <li>
+                    <a class="dropdown-item" onclick="setYear('')">Year</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -103,13 +117,33 @@
         <ul class="pagination">
             @if($currentPage > 1)
                 <li class="page-item">
-                    <a class="page-link" href="{{ route('search-results', ['_token' => csrf_token(), 'anime_title' => $oldTitle, 'genre' => $oldGenre, 'min_score' => $minScore, 'max_score' => $maxScore, 'page' => $currentPage - 1]) }}"> &lt; </a>
+                    <a class="page-link" href="{{ route('search-results', [
+                        '_token' => csrf_token(),
+                        'anime_title' => $oldTitle ?? '',
+                        'genre' => $oldGenre ?? '',
+                        'min_score' => $minScore ?? '',
+                        'max_score' => $maxScore ?? '',
+                        'type' => $oldType ?? '',
+                        'rating' => $oldRating ?? '',
+                        'year' => $oldYear ?? '',
+                        'page' => $currentPage - 1
+                    ]) }}"> &lt; </a>
                 </li>
             @endif
 
             @if($lastPage > 1)
                 <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                    <a class="page-link" href="{{ route('search-results', ['_token' => csrf_token(), 'anime_title' => $oldTitle, 'genre' => $oldGenre, 'min_score' => $minScore, 'max_score' => $maxScore, 'page' => 1]) }}">1</a>
+                    <a class="page-link" href="{{ route('search-results', [
+                        '_token' => csrf_token(),
+                        'anime_title' => $oldTitle ?? '',
+                        'genre' => $oldGenre ?? '',
+                        'min_score' => $minScore ?? '',
+                        'max_score' => $maxScore ?? '',
+                        'type' => $oldType ?? '',
+                        'rating' => $oldRating ?? '',
+                        'year' => $oldYear ?? '',
+                        'page' => 1
+                    ]) }}">1</a>
                 </li>
             @endif
 
@@ -119,7 +153,17 @@
 
             @for ($i = max(2, $currentPage - 1); $i <= min($lastPage - 1, $currentPage + 1); $i++)
                 <li class="page-item {{ $currentPage == $i ? 'active' : '' }}">
-                    <a class="page-link" href="{{ route('search-results', ['_token' => csrf_token(), 'anime_title' => $oldTitle, 'genre' => $oldGenre, 'min_score' => $minScore, 'max_score' => $maxScore, 'page' => $i]) }}">{{ $i }}</a>
+                    <a class="page-link" href="{{ route('search-results', [
+                        '_token' => csrf_token(),
+                        'anime_title' => $oldTitle ?? '',
+                        'genre' => $oldGenre ?? '',
+                        'min_score' => $minScore ?? '',
+                        'max_score' => $maxScore ?? '',
+                        'type' => $oldType ?? '',
+                        'rating' => $oldRating ?? '',
+                        'year' => $oldYear ?? '',
+                        'page' => $i
+                    ]) }}">{{ $i }}</a>
                 </li>
             @endfor
 
@@ -128,67 +172,155 @@
             @endif
 
             @if($lastPage > 1)
-            <li class="page-item {{ $currentPage == $lastPage ? 'active' : '' }}">
-                <a class="page-link" href="{{ route('search-results', ['_token' => csrf_token(), 'anime_title' => $oldTitle, 'genre' => $oldGenre, 'min_score' => $minScore, 'max_score' => $maxScore, 'page' => $lastPage]) }}">{{ $lastPage }}</a>
-            </li>
+                <li class="page-item {{ $currentPage == $lastPage ? 'active' : '' }}">
+                    <a class="page-link" href="{{ route('search-results', [
+                        '_token' => csrf_token(),
+                        'anime_title' => $oldTitle ?? '',
+                        'genre' => $oldGenre ?? '',
+                        'min_score' => $minScore ?? '',
+                        'max_score' => $maxScore ?? '',
+                        'type' => $oldType ?? '',
+                        'rating' => $oldRating ?? '',
+                        'year' => $oldYear ?? '',
+                        'page' => $lastPage
+                    ]) }}">{{ $lastPage }}</a>
+                </li>
             @endif
 
             @if($currentPage < $lastPage)
                 <li class="page-item">
-                    <a class="page-link" href="{{ route('search-results', ['_token' => csrf_token(), 'anime_title' => $oldTitle, 'genre' => $oldGenre, 'min_score' => $minScore, 'max_score' => $maxScore, 'page' => $currentPage + 1]) }}"> &gt; </a>
+                    <a class="page-link" href="{{ route('search-results', [
+                        '_token' => csrf_token(),
+                        'anime_title' => $oldTitle ?? '',
+                        'genre' => $oldGenre ?? '',
+                        'min_score' => $minScore ?? '',
+                        'max_score' => $maxScore ?? '',
+                        'type' => $oldType ?? '',
+                        'rating' => $oldRating ?? '',
+                        'year' => $oldYear ?? '',
+                        'page' => $currentPage + 1
+                    ]) }}"> &gt; </a>
                 </li>
             @endif
         </ul>
     </div>
 
     <script>
-        const genreList = @json($genreList); // Make sure genreList is available in JS
+        const genreList = @json($genreList);
 
         function setGenre(genreName, genreId) {
-            document.getElementById('selected-genre').value = genreId; // Set the selected genre ID
+            document.getElementById('selected-genre').value = genreId;
 
-            // Update button text based on the selected genre
             if (genreId === '') {
-                document.querySelector('#genre-dropdown button').innerText = 'Genre'; // Reset button text to 'Genre'
+                document.querySelector('#genre-dropdown button').innerText = 'Genre';
             } else {
-                // Find the genre name from the genreList using the genreId
                 const selectedGenre = genreList.find(genre => genre.mal_id == genreId);
                 if (selectedGenre) {
-                    document.querySelector('#genre-dropdown button').innerText = selectedGenre.name; // Update button text to the selected genre name
+                    document.querySelector('#genre-dropdown button').innerText = selectedGenre.name;
                 }
             }
         }
 
-        function setRating(minScore, maxScore) {
-            document.getElementById('min-score').value = minScore; // Set the minimum score
-            document.getElementById('max-score').value = maxScore; // Set the maximum score
+        function setScore(minScore, maxScore) {
+            document.getElementById('min-score').value = minScore;
+            document.getElementById('max-score').value = maxScore;
 
-            // Update button text based on the selected rating
             if (minScore === '' && maxScore === '') {
-                document.querySelector('#rating-dropdown button').innerText = 'Rating'; // Reset to default text
+                document.querySelector('#score-dropdown button').innerText = 'Score';
             } else {
-                document.querySelector('#rating-dropdown button').innerText = minScore !== null ? `${maxScore} - ${minScore}` : '< 2.99'; // Update button text
+                document.querySelector('#score-dropdown button').innerText = minScore !== null ? `${maxScore} - ${minScore}` : '< 2.99';
             }
         }
 
-        // Update rating dropdown button text on page load
+        function setType(type, displayText) {
+            document.getElementById('selected-type').value = type;
+            if (type === '') {
+                document.querySelector('#type-dropdown button').innerText = 'Type';
+            } else {
+                document.querySelector('#type-dropdown button').innerText = displayText;
+            }
+        }
+
+        function setRating(value, displayText) {
+            document.getElementById('selected-rating').value = value;
+            if (value === '') {
+                document.querySelector('#rating-dropdown button').innerText = 'Rating';
+            } else {
+                document.querySelector('#rating-dropdown button').innerText = displayText;
+            }
+        }
+
+        function setYear(year) {
+            document.getElementById('selected-year').value = year;
+            document.querySelector('#year-dropdown button').innerText = year ? year : 'Year';
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-                const selectedGenreId = document.getElementById('selected-genre').value;
+            const selectedGenreId = document.getElementById('selected-genre').value;
             if (selectedGenreId) {
                 const selectedGenre = genreList.find(genre => genre.mal_id == selectedGenreId);
                 if (selectedGenre) {
-                    document.querySelector('#genre-dropdown button').innerText = selectedGenre.name; // Set button text to the genre name
+                    document.querySelector('#genre-dropdown button').innerText = selectedGenre.name;
                 }
             } else {
-                document.querySelector('#genre-dropdown button').innerText = 'Genre'; // Reset to default text
+                document.querySelector('#genre-dropdown button').innerText = 'Genre';
             }
 
             const minScore = document.getElementById('min-score').value;
             const maxScore = document.getElementById('max-score').value;
             if (minScore !== '' && maxScore !== '') {
-                document.querySelector('#rating-dropdown button').innerText = `${maxScore} - ${minScore}`;
+                document.querySelector('#score-dropdown button').innerText = `${maxScore} - ${minScore}`;
             } else if (maxScore !== '') {
-                document.querySelector('#rating-dropdown button').innerText = '< 2.99';
+                document.querySelector('#score-dropdown button').innerText = '< 2.99';
+            }
+
+            const selectedType = document.getElementById('selected-type').value;
+            if (selectedType) {
+                const typeTextMap = {
+                    'tv': 'TV Series',
+                    'movie': 'Movie',
+                    'ova': 'OVA',
+                    'special': 'Special',
+                    'ona': 'ONA',
+                    'music': 'Music',
+                    'cm': 'Commercial',
+                    'pv': 'Promotional Video',
+                    'tv_special': 'TV Special'
+                };
+                document.querySelector('#type-dropdown button').innerText = typeTextMap[selectedType] || 'Type';
+            } else {
+                document.querySelector('#type-dropdown button').innerText = 'Type';
+            }
+
+            const selectedRating = document.getElementById('selected-rating').value;
+            if (selectedRating) {
+                const ratingTextMap = {
+                    'g': 'All Ages',
+                    'pg': 'Children',
+                    'pg13': 'Teens (13 or older)',
+                    'r17': 'Violence & Profanity',
+                    'r': 'Mild Nudity',
+                    'rx': 'Hentai'
+                };
+                document.querySelector('#rating-dropdown button').innerText = ratingTextMap[selectedRating] || 'Rating';
+            } else {
+                document.querySelector('#rating-dropdown button').innerText = 'Rating';
+            }
+
+            const yearDropdownMenu = document.getElementById('year-dropdown-menu');
+            const currentYear = new Date().getFullYear();
+            const startYear = 1950;
+
+            for (let year = currentYear; year >= startYear; year--) {
+                const listItem = document.createElement ('li');
+                const anchor = document.createElement('a');
+                anchor.className = 'dropdown-item';
+                anchor.innerText = year;
+                anchor.onclick = function() {
+                    setYear(year);
+                };
+                listItem.appendChild(anchor);
+                yearDropdownMenu.appendChild(listItem);
             }
         });
     </script>
