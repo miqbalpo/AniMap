@@ -88,6 +88,8 @@ class RecommendationController extends Controller
             }
         }
 
+        shuffle($recommendations);
+        
         $currentPage = $request->input('page', 1);
         $perPage = 25; // Number of recommendations per page
         $offset = ($currentPage - 1) * $perPage;
