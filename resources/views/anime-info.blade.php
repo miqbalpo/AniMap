@@ -287,7 +287,7 @@
                 updateButtonText(status);
                 Swal.fire({
                     title: "Success",
-                    text: "Anime added to your list!",
+                    text: "Anime list succesfully updated!",
                     icon: "success",
                     iconColor: "#57F000",
                     confirmButtonColor: "#2CCCFF",

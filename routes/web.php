@@ -8,11 +8,10 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\AnimeInfoController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\AnimeListController;
+use App\Http\Controllers\RecommendationController;
 
 // Welcome Route
-Route::get('/', function () {
-    return view('welcome', ['title' => 'Welcome to AniMap']);
-})->name('welcome');
+Route::get('/', [RecommendationController::class, 'homepage'])->name('welcome');
 
 // Login route
 Route::get('/login', function () {

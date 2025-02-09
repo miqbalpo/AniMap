@@ -10,48 +10,77 @@
     </div>
 
     @guest
-        <div class="row justify-content-center d-block mt-5" >
+        <div class="row justify-content-center d-block mt-5">
             <h2 class="text-center fw-semibold" style="height: max-content;">Nothing to Show Here...</h2>
             <h4 class="text-center fw-semibold">Sign Up to Get Your Own Anime Recommendations</h4>
         </div>
     @endguest
 
     @auth
-        <h2 class="text-center fw-semibold">Recommended For You</h2>
-        <div class="row justify-content-center">
-            <div class="card bg-transparent text-white col-4">
-                <div class="card-body bg-transparent ">
-                    <a href="#" class="btn btn-primary bg-transparent">
-                        <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRsXfbkCBlF0Tb429WvkCbYLGx2cvlv89-Ljo4vkwfB4V31SHJ" class="card-img-top" alt="...">
-                        <h5 class="card-title mt-4 fs-5 text-center">Love Live! Nijigasaki</h5>
-                    </a>
+        <div id="recommendation-results" class="row justify-content-center">
+            @if(isset($data['data']) && count($data['data']) > 0)
+                <h2 class="text-center fw-semibold">Recommended For You</h2>
+
+                @foreach ($data['data'] as $anime)
+                    <div class="card bg-transparent text-white col-4">
+                        <div class="card-body bg-transparent ">
+                            <a href="{{ route('anime-info', ['id' => $anime['mal_id']]) }}" class="btn btn-primary bg-transparent">
+                                <img src="{{ $anime['images']['jpg']['image_url'] }}" class="card-img-top" alt="{{ $anime['title'] }}">
+                                <h5 class="card-title mt-4 fs-5 text-center">{{ $anime['title'] }}</h5>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+
+                <div class="pagination justify-content-center mt-4">
+                    <ul class="pagination">
+                        @if($currentPage > 1)
+                            <li class="page-item">
+                                <a class="page-link" href="{{ route('welcome', ['page' => $currentPage - 1]) }}"> &lt; </a>
+                            </li>
+                        @endif
+
+                        @if($lastPage > 1)
+                            <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                <a class="page-link" href="{{ route('welcome', ['page' => 1]) }}">1</a>
+                            </li>
+                        @endif
+
+                        @if($lastPage > 2 && $currentPage > 3)
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
+
+                        @for ($i = max(2, $currentPage - 1); $i <= min($lastPage - 1, $currentPage + 1); $i++)
+                            <li class="page-item {{ $currentPage == $i ? 'active' : '' }}">
+                                <a class="page-link" href="{{ route('welcome', ['page' => $i]) }}">{{ $i }}</a>
+                            </li>
+                        @endfor
+
+                        @if($currentPage < $lastPage - 2)
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
+
+                        @if($lastPage > 1)
+                            <li class="page-item {{ $currentPage == $lastPage ? 'active' : '' }}">
+                                <a class="page-link" href="{{ route('welcome', ['page' => $lastPage]) }}">{{ $lastPage }}</a>
+                            </li>
+                        @endif
+
+                        @if($currentPage < $lastPage)
+                            <li class="page-item">
+                                <a class="page-link" href="{{ route('welcome', ['page' => $currentPage + 1]) }}"> &gt; </a>
+                            </li>
+                        @endif
+                    </ul>
                 </div>
-            </div>
-            <div class="card bg-transparent text-white col-4">
-                <div class="card-body bg-transparent ">
-                    <a href="#" class="btn btn-primary bg-transparent">
-                        <img src="https://cdn.myanimelist.net/images/anime/1448/127956l.jpg" class="card-img-top" alt="...">
-                        <h5 class="card-title mt-4 fs-5 text-center">Bocchi The Rock!</h5>
-                    </a>
+            @else
+                <div class="bg-transparent text-white mt-5">
+                    <div class="card-body bg-transparent">
+                        <h2 class="text-center fw-semibold mb-5">Nothing to Show Here...</h2>
+                        <h4 class="text-center fw-semibold">Start adding anime to your list to get recommendations</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="card bg-transparent text-white col-4">
-                <div class="card-body bg-transparent ">
-                    <a href="#" class="btn btn-primary bg-transparent">
-                        <img src="https://cdn.myanimelist.net/images/anime/1332/143513l.jpg" class="card-img-top" alt="...">
-                        <h5 class="card-title mt-4 fs-5 text-center">Makeine: Too Many Losing Heroines!</h5>
-                    </a>
-                </div>
-            </div>
-            <div class="card bg-transparent text-white col-4">
-                <div class="card-body bg-transparent ">
-                    <a href="#" class="btn btn-primary bg-transparent">
-                        <img src="https://cdn.myanimelist.net/images/anime/9/80417l.jpg" class="card-img-top" alt="...">
-                        <h5 class="card-title mt-4 fs-5 text-center">New Game!</h5>
-                    </a>
-                </div>
-            </div>
+            @endif
         </div>
     @endauth
-
 </x-main-layout>
