@@ -88,10 +88,14 @@ class RecommendationController extends Controller
             }
         }
 
-        shuffle($recommendations);
-        
+
         $currentPage = $request->input('page', 1);
-        $perPage = 25; // Number of recommendations per page
+        $perPage = 24;
+
+        if ($currentPage == 1) {
+            shuffle($recommendations);
+        }
+
         $offset = ($currentPage - 1) * $perPage;
         $paginatedRecommendations = new LengthAwarePaginator(
             array_slice($recommendations, $offset, $perPage),
