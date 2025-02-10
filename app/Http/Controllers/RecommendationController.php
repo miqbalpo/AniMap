@@ -32,14 +32,33 @@ class RecommendationController extends Controller
             'plan_to_watch' => $planToWatchAnimeIds,
         ]);
 
+        // Log the raw API URLs directly before making the API calls
+        if ($queryInput) {
+            $queryUrl = "https://api.jikan.moe/v4/anime?" . http_build_query(['q' => $queryInput, 'page' => $request->input('page', 1), 'sfw' => 1]);
+            Log::info('Raw API request URL for query input', ['url' => $queryUrl]);
+        }
+
+        if ($genreInput) {
+            $genreUrl = "https://api.jikan.moe/v4/anime?" . http_build_query(['genres' => $genreInput, 'page' => $request->input('page', 1), 'sfw' => 1]);
+            Log::info('Raw API request URL for genre input', ['url' => $genreUrl]);
+        }
+
+        foreach (array_merge($likedAnimeIds, $currentlyWatchingAnimeIds, $planToWatchAnimeIds) as $malId) {
+            $recommendationUrl = "https://api.jikan.moe/v4/anime/{$malId}/recommendations?" . http_build_query(['sfw' => 1]);
+            Log::info('Raw API request URL for anime recommendations', ['url' => $recommendationUrl]);
+        }
+
+        // Fetch recommendations based on the query and genres
         $recommendations = $this->fetchRecommendations($request, $queryInput, $genreInput, $likedAnimeIds, $currentlyWatchingAnimeIds, $planToWatchAnimeIds);
 
         if (empty($recommendations)) {
             Log::error('Recommendations array is empty after processing', ['recommendations' => $recommendations]);
         }
 
+        //dd($recommendations);
         return $this->paginateAndReturnView($request, $recommendations);
     }
+
 
     private function getLatestSearch($userId)
     {
@@ -85,15 +104,15 @@ class RecommendationController extends Controller
         $recommendations = [];
 
         if ($queryInput) {
-            $recommendations = array_merge($recommendations, $this->fetchFromJikan(['q' => $queryInput, 'page' => $request->input('page', 1)]));
+            $recommendations = array_merge($recommendations, $this->fetchFromJikan(['q' => $queryInput, 'page' => $request->input('page', 1), 'sfw' => 1]));
         }
 
         if ($genreInput) {
-            $recommendations = array_merge($recommendations, $this->fetchFromJikan(['genres' => $genreInput, 'page' => $request->input('page', 1)]));
+            $recommendations = array_merge($recommendations, $this->fetchFromJikan(['genres' => $genreInput, 'page' => $request->input('page', 1), 'sfw' => 1]));
         }
 
         foreach (array_merge($likedAnimeIds, $currentlyWatchingAnimeIds, $planToWatchAnimeIds) as $malId) {
-            $recommendations = array_merge($recommendations, $this->fetchAnimeRecommendations($malId));
+            $recommendations = array_merge($recommendations, $this->fetchAnimeRecommendations($malId, true));
         }
 
         if (!empty($likedAnimeIds) || !empty($currentlyWatchingAnimeIds) || !empty($planToWatchAnimeIds)) {
@@ -111,12 +130,12 @@ class RecommendationController extends Controller
         return $this->processJikanResponse($data);
     }
 
-    private function fetchAnimeRecommendations($malId)
+    private function fetchAnimeRecommendations($malId, $isRecommendation = false)
     {
         $apiUrl = "https://api.jikan.moe/v4/anime/{$malId}/recommendations";
-        $response = Http::get($apiUrl);
+        $response = Http::get($apiUrl, ['sfw' => 1]);
         $data = $response->json();
-        return $this->processJikanResponse($data, true);
+        return $this->processJikanResponse($data, $isRecommendation);
     }
 
     private function processJikanResponse($data, $isRecommendation = false)
@@ -168,3 +187,4 @@ class RecommendationController extends Controller
         ]);
     }
 }
+
