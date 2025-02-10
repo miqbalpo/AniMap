@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 
 class BookmarkController extends Controller
@@ -13,62 +13,28 @@ class BookmarkController extends Controller
     {
         Log::info('Request received:', $request->all());
 
-        $request->validate([
-            'mal_id' => 'required|integer',
-            'status' => 'required|string|in:liked,plan_to_watch,currently_watching,disliked,wont_watch,unwatched'
-        ]);
+        $this->validateRequest($request);
 
-        if (!Auth::check()) {
-            Log::error('User  not authenticated');
-            return response()->json(['success' => false, 'message' => 'User  not authenticated'], 401);
+        if (!$this->isUserAuthenticated()) {
+            return $this->unauthenticatedResponse();
         }
 
-        $userId = Auth::id();
-        $user = User::find($userId);
-
+        $user = $this->getAuthenticatedUser();
         if (!$user) {
-            Log::error('User  not found', ['userId' => $userId]);
-            return response()->json(['success' => false, 'message' => 'User  not found'], 404);
+            return $this->userNotFoundResponse();
         }
 
-        $animeList = is_string($user->anime_list) ? json_decode($user->anime_list, true) : ($user->anime_list ?? []);
-
+        $animeList = $this->getAnimeList($user);
         if (!is_array($animeList)) {
-            Log::error('Anime list is not an array', ['anime_list' => $user->anime_list]);
-            return response()->json(['success' => false, 'message' => 'Invalid anime list format'], 500);
+            return $this->invalidAnimeListResponse($user);
         }
 
-        // Check if the status is "unwatched"
-        if ($request->status === 'unwatched') {
-            // Remove the anime from the list
-            $animeList = array_filter($animeList, function ($anime) use ($request) {
-                return $anime['mal_id'] !== $request->mal_id;
-            });
-        } else {
-            // Update the status of the anime
-            $found = false;
-            foreach ($animeList as &$anime) {
-                if (isset($anime['mal_id']) && $anime['mal_id'] == $request->mal_id) {
-                    $anime['status'] = $request->status;
-                    $found = true;
-                    break;
-                }
-            }
+        $animeList = $this->updateAnimeListStatus($animeList, $request);
 
-            // If not found, add it to the list
-            if (!$found) {
-                $animeList[] = ['mal_id' => $request->mal_id, 'status' => $request->status];
-            }
-        }
-
-        // Update the user's anime list
         $user->anime_list = $animeList;
 
-        try {
-            $user->save();
-        } catch (\Exception $e) {
-            Log::error('Error saving user anime list', ['error' => $e->getMessage()]);
-            return response()->json(['success' => false, 'message' => 'Failed to update anime list.'], 500);
+        if (!$this->saveUser($user)) {
+            return $this->saveErrorResponse();
         }
 
         return response()->json(['success' => true, 'message' => 'Anime list updated successfully']);
@@ -78,23 +44,122 @@ class BookmarkController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user) {
-            return response()->json(['success' => false, 'message' => 'User  not authenticated'], 401);
+        if (!$user instanceof User) {
+            return response()->json(['success' => false, 'message' => 'User not authenticated'], 401);
         }
 
-        $animeList = is_string($user->anime_list) ? json_decode($user->anime_list, true) : $user->anime_list;
+        $animeList = $this->getAnimeList($user);
 
         if (!is_array($animeList)) {
             Log::error('Anime list is not an array', ['anime_list' => $user->anime_list]);
             return response()->json(['success' => false, 'message' => 'Invalid anime list format'], 500);
         }
 
-        foreach ($animeList as $anime) {
-            if ($anime['mal_id'] == $mal_id) {
-                return response()->json(['success' => true, 'status' => $anime['status']]);
+        $status = $this->findAnimeStatus($animeList, $mal_id);
+
+        return response()->json(['success' => true, 'status' => $status]);
+    }
+
+    private function validateRequest(Request $request)
+    {
+        $request->validate([
+            'mal_id' => 'required|integer',
+            'status' => 'required|string|in:liked,plan_to_watch,currently_watching,disliked,wont_watch,unwatched'
+        ]);
+    }
+
+    private function isUserAuthenticated()
+    {
+        return Auth::check();
+    }
+
+    private function unauthenticatedResponse()
+    {
+        Log::error('User not authenticated');
+        return response()->json(['success' => false, 'message' => 'User not authenticated'], 401);
+    }
+
+    private function getAuthenticatedUser()
+    {
+        $userId = Auth::id();
+        return User::find($userId);
+    }
+
+    private function userNotFoundResponse()
+    {
+        $userId = Auth::id();
+        Log::error('User not found', ['userId' => $userId]);
+        return response()->json(['success' => false, 'message' => 'User not found'], 404);
+    }
+
+    private function getAnimeList(User $user)
+    {
+        return is_string($user->anime_list) ? json_decode($user->anime_list, true) : ($user->anime_list ?? []);
+    }
+
+    private function invalidAnimeListResponse(User $user)
+    {
+        Log::error('Anime list is not an array', ['anime_list' => $user->anime_list]);
+        return response()->json(['success' => false, 'message' => 'Invalid anime list format'], 500);
+    }
+
+    private function updateAnimeListStatus(array $animeList, Request $request)
+    {
+        if ($request->status === 'unwatched') {
+            return $this->removeAnimeFromList($animeList, $request->mal_id);
+        } else {
+            return $this->updateOrAddAnimeStatus($animeList, $request->mal_id, $request->status);
+        }
+    }
+
+    private function removeAnimeFromList(array $animeList, $mal_id)
+    {
+        return array_filter($animeList, function ($anime) use ($mal_id) {
+            return $anime['mal_id'] !== $mal_id;
+        });
+    }
+
+    private function updateOrAddAnimeStatus(array $animeList, $mal_id, $status)
+    {
+        $found = false;
+        foreach ($animeList as &$anime) {
+            if (isset($anime['mal_id']) && $anime['mal_id'] == $mal_id) {
+                $anime['status'] = $status;
+                $found = true;
+                break;
             }
         }
 
-        return response()->json(['success' => true, 'status' => 'default']);
+        if (!$found) {
+            $animeList[] = ['mal_id' => $mal_id, 'status' => $status];
+        }
+
+        return $animeList;
+    }
+
+    private function saveUser(User $user)
+    {
+        try {
+            $user->save();
+            return true;
+        } catch (\Exception $e) {
+            Log::error('Error saving user anime list', ['error' => $e->getMessage()]);
+            return false;
+        }
+    }
+
+    private function saveErrorResponse()
+    {
+        return response()->json(['success' => false, 'message' => 'Failed to update anime list.'], 500);
+    }
+
+    private function findAnimeStatus(array $animeList, $mal_id)
+    {
+        foreach ($animeList as $anime) {
+            if ($anime['mal_id'] == $mal_id) {
+                return $anime['status'];
+            }
+        }
+        return 'default';
     }
 }

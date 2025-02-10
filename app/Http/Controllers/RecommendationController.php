@@ -7,24 +7,54 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\SearchHistories;
 
 class RecommendationController extends Controller
 {
     public function homepage(Request $request)
     {
-        // Check if the user is authenticated
         if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'You must be logged in to view recommendations.');
+            return redirect()->route('welcome');
         }
 
         $user = Auth::user();
+        $latestSearch = $this->getLatestSearch($user->id);
 
-        // Decode the user's anime list
-        $animeList = is_string($user->anime_list) ? json_decode($user->anime_list, true) : ($user->anime_list ?? []);
+        $queryInput = $latestSearch ? $latestSearch->search_query : null;
+        $genreInput = $latestSearch ? $latestSearch->genre_filter : null;
 
-        // Log the user's anime list
-        Log::info('User  anime list', ['anime_list' => $animeList]);
+        $animeList = $this->getUserAnimeList($user);
+        [$likedAnimeIds, $currentlyWatchingAnimeIds, $planToWatchAnimeIds] = $this->categorizeAnimeList($animeList);
 
+        Log::info('Collected anime IDs for recommendations', [
+            'liked' => $likedAnimeIds,
+            'currently_watching' => $currentlyWatchingAnimeIds,
+            'plan_to_watch' => $planToWatchAnimeIds,
+        ]);
+
+        $recommendations = $this->fetchRecommendations($request, $queryInput, $genreInput, $likedAnimeIds, $currentlyWatchingAnimeIds, $planToWatchAnimeIds);
+
+        if (empty($recommendations)) {
+            Log::error('Recommendations array is empty after processing', ['recommendations' => $recommendations]);
+        }
+
+        return $this->paginateAndReturnView($request, $recommendations);
+    }
+
+    private function getLatestSearch($userId)
+    {
+        return SearchHistories::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->first();
+    }
+
+    private function getUserAnimeList($user)
+    {
+        return is_string($user->anime_list) ? json_decode($user->anime_list, true) : ($user->anime_list ?? []);
+    }
+
+    private function categorizeAnimeList($animeList)
+    {
         $likedAnimeIds = [];
         $currentlyWatchingAnimeIds = [];
         $planToWatchAnimeIds = [];
@@ -47,56 +77,81 @@ class RecommendationController extends Controller
             }
         }
 
-        Log::info('Collected anime IDs for recommendations', [
-            'liked' => $likedAnimeIds,
-            'currently_watching' => $currentlyWatchingAnimeIds,
-            'plan_to_watch' => $planToWatchAnimeIds,
-        ]);
+        return [$likedAnimeIds, $currentlyWatchingAnimeIds, $planToWatchAnimeIds];
+    }
 
+    private function fetchRecommendations($request, $queryInput, $genreInput, $likedAnimeIds, $currentlyWatchingAnimeIds, $planToWatchAnimeIds)
+    {
         $recommendations = [];
 
-        foreach (array_merge($likedAnimeIds, $currentlyWatchingAnimeIds, $planToWatchAnimeIds) as $malId) {
-            // Generate the raw Jikan API URL
-            $apiUrl = "https://api.jikan.moe/v4/anime/{$malId}/recommendations";
-            Log::info('Generated API URL', ['url' => $apiUrl]);
-
-            $response = Http::get($apiUrl);
-            $data = $response->json();
-
-            Log::info('Fetching recommendations for mal_id', ['mal_id' => $malId, 'response' => $data]);
-
-            if (isset($data['data']) && !empty($data['data'])) {
-                foreach ($data['data'] as $recommendation) {
-                    Log::info('Processing recommendation', ['recommendation' => $recommendation]);
-
-                    if (isset($recommendation['entry']['mal_id'])) {
-                        $recommendations[] = [
-                            'mal_id' => $recommendation['entry']['mal_id'],
-                            'title' => $recommendation['entry']['title'] ?? 'Unknown Title',
-                            'images' => [
-                                'jpg' => [
-                                    'image_url' => $recommendation['entry']['images']['jpg']['image_url'] ?? 'default_thumbnail.jpg',
-                                ],
-                            ],
-                        ];
-                    } else {
-                        Log::warning('Missing mal_id in recommendation', ['recommendation' => $recommendation]);
-                    }
-                }
-            } else {
-                Log::warning('No recommendations found for mal_id', ['mal_id' => $malId]);
-            }
+        if ($queryInput) {
+            $recommendations = array_merge($recommendations, $this->fetchFromJikan(['q' => $queryInput, 'page' => $request->input('page', 1)]));
         }
 
+        if ($genreInput) {
+            $recommendations = array_merge($recommendations, $this->fetchFromJikan(['genres' => $genreInput, 'page' => $request->input('page', 1)]));
+        }
 
-        $currentPage = $request->input('page', 1);
-        $perPage = 24;
+        foreach (array_merge($likedAnimeIds, $currentlyWatchingAnimeIds, $planToWatchAnimeIds) as $malId) {
+            $recommendations = array_merge($recommendations, $this->fetchAnimeRecommendations($malId));
+        }
 
-        if ($currentPage == 1) {
+        if (!empty($likedAnimeIds) || !empty($currentlyWatchingAnimeIds) || !empty($planToWatchAnimeIds)) {
             shuffle($recommendations);
         }
 
+        return $recommendations;
+    }
+
+    private function fetchFromJikan($queryParams)
+    {
+        $apiUrl = "https://api.jikan.moe/v4/anime";
+        $response = Http::get($apiUrl, $queryParams);
+        $data = $response->json();
+        return $this->processJikanResponse($data);
+    }
+
+    private function fetchAnimeRecommendations($malId)
+    {
+        $apiUrl = "https://api.jikan.moe/v4/anime/{$malId}/recommendations";
+        $response = Http::get($apiUrl);
+        $data = $response->json();
+        return $this->processJikanResponse($data, true);
+    }
+
+    private function processJikanResponse($data, $isRecommendation = false)
+    {
+        $recommendations = [];
+        if (isset($data['data']) && !empty($data['data'])) {
+            foreach ($data['data'] as $recommendation) {
+                $entry = $isRecommendation ? $recommendation['entry'] : $recommendation;
+                if (isset($entry['mal_id'])) {
+                    $recommendations[] = [
+                        'mal_id' => $entry['mal_id'],
+                        'title' => $entry['title'] ?? 'Unknown Title',
+                        'images' => [
+                            'jpg' => [
+                                'image_url' => $entry['images']['jpg']['image_url'] ?? 'default_thumbnail.jpg',
+                            ],
+                        ],
+                    ];
+                } else {
+                    Log::warning('Missing mal_id in recommendation', ['recommendation' => $recommendation]);
+                }
+            }
+        } else {
+            Log::warning('No recommendations found', ['response' => $data]);
+        }
+
+        return $recommendations;
+    }
+
+    private function paginateAndReturnView($request, $recommendations)
+    {
+        $currentPage = $request->input('page', 1);
+        $perPage = 25;
         $offset = ($currentPage - 1) * $perPage;
+
         $paginatedRecommendations = new LengthAwarePaginator(
             array_slice($recommendations, $offset, $perPage),
             count($recommendations),
@@ -105,18 +160,9 @@ class RecommendationController extends Controller
             ['path' => $request->url(), 'query' => $request->query()]
         );
 
-        if ($paginatedRecommendations->isEmpty()) {
-            Log::error('Recommendations array is empty after processing', ['recommendations' => $recommendations]);
-        }
-
-        Log::info('Final recommendations array', ['recommendations' => $paginatedRecommendations]);
-
-        //dd($apiUrl);
         return view('welcome', [
             'title' => 'Welcome to AniMap',
-            'data' => [
-                'data' => $paginatedRecommendations,
-            ],
+            'data' => ['data' => $paginatedRecommendations],
             'currentPage' => $currentPage,
             'lastPage' => $paginatedRecommendations->lastPage(),
         ]);

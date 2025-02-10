@@ -36,13 +36,13 @@
                     <ul class="pagination">
                         @if($currentPage > 1)
                             <li class="page-item">
-                                <a class="page-link" href="{{ route('welcome', ['page' => $currentPage - 1]) }}"> &lt; </a>
+                                <a class="page-link" href="{{ route('home', ['page' => $currentPage - 1]) }}"> &lt; </a>
                             </li>
                         @endif
 
                         @if($lastPage > 1)
                             <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                <a class="page-link" href="{{ route('welcome', ['page' => 1]) }}">1</a>
+                                <a class="page-link" href="{{ route('home', ['page' => 1]) }}">1</a>
                             </li>
                         @endif
 
@@ -52,7 +52,7 @@
 
                         @for ($i = max(2, $currentPage - 1); $i <= min($lastPage - 1, $currentPage + 1); $i++)
                             <li class="page-item {{ $currentPage == $i ? 'active' : '' }}">
-                                <a class="page-link" href="{{ route('welcome', ['page' => $i]) }}">{{ $i }}</a>
+                                <a class="page-link" href="{{ route('home', ['page' => $i]) }}">{{ $i }}</a>
                             </li>
                         @endfor
 
@@ -62,13 +62,13 @@
 
                         @if($lastPage > 1)
                             <li class="page-item {{ $currentPage == $lastPage ? 'active' : '' }}">
-                                <a class="page-link" href="{{ route('welcome', ['page' => $lastPage]) }}">{{ $lastPage }}</a>
+                                <a class="page-link" href="{{ route('home', ['page' => $lastPage]) }}">{{ $lastPage }}</a>
                             </li>
                         @endif
 
                         @if($currentPage < $lastPage)
                             <li class="page-item">
-                                <a class="page-link" href="{{ route('welcome', ['page' => $currentPage + 1]) }}"> &gt; </a>
+                                <a class="page-link" href="{{ route('home', ['page' => $currentPage + 1]) }}"> &gt; </a>
                             </li>
                         @endif
                     </ul>
@@ -77,7 +77,7 @@
                 <div class="bg-transparent text-white mt-5">
                     <div class="card-body bg-transparent">
                         <h2 class="text-center fw-semibold mb-5">Nothing to Show Here...</h2>
-                        <h4 class="text-center fw-semibold">Start adding anime to your list to get recommendations</h4>
+                        <h4 class="text-center fw-semibold">Start searching and adding animes to your list to get recommendations</h4>
                     </div>
                 </div>
             @endif

@@ -15,7 +15,11 @@
                 @csrf
                 <div class="d-flex bg-transparent">
                     <div id="profile-picture">
-                        <img id="profile-pic" src="/{{ $profile_pic }}" class="card-img-top" alt="Profile Picture">
+                        @if (Auth::user()->profile_pic == null)
+                            <img id="profile-pic" src="{{ asset('image/placeholder_pfp.png')}}" class="card-img-top" alt="Profile Picture">
+                        @else
+                            <img id="profile-pic" src="/{{ $profile_pic }}" class="card-img-top" alt="Profile Picture">
+                        @endif
                         <input type="file" name="profile_pic" accept="image/png, image/jpg, image/jpeg" class="d-none" id="file-input" onchange="previewImage(event)">
                         <button type="button" class="profile-pic-btn btn mt-3" onclick="document.getElementById('file-input').click();">
                             Change Profile Picture

@@ -16,10 +16,11 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect('/')->with('success', 'You are logged in successfully.');
+            return redirect('/home')->with('success', 'You are logged in successfully.');
         }
 
         return redirect()->route('login')->withErrors([
+            'errors' => 'login failed',
             'email' => 'The provided credentials do not match our records.',
         ])->withInput($request->only('email'));
     }

@@ -16,4 +16,22 @@
     <p class="mt-4 text-center">
         Don't have an account yet? <a class="link-opacity-100 fw-bold" href="{{ route('register') }}" style="color: #BBE1FA;">Click here to sign up</a>
     </p>
+
+    <script>
+        const errorMessage = "{{ session('errors') }}";
+
+        window.onload = function() {
+            if (errorMessage) {
+                console.log('Login failed:', errorMessage);
+                event.preventDefault();
+                Swal.fire({
+                    title: "Error",
+                    text: "The account with this email is unavailable.",
+                    icon: "warning",
+                    iconColor: "#FE3839",
+                    confirmButtonColor: "#2CCCFF"
+                });
+            }
+        };
+    </script>
 </x-account-layout>

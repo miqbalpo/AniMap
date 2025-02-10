@@ -57,7 +57,10 @@
     <script>
         $(document).ready(function () {
             const dataTable = $('#anime-list-table').DataTable({
-                pageLength: 10 // Set the default number of rows to display per page
+                pageLength: 10,
+                columnDefs: [{
+                    orderable: false, targets: 0
+                }]
             });
 
             // Set the "All" button as active by default
