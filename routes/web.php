@@ -64,7 +64,7 @@ Route::get('/search-results', [SearchController::class, 'browse'])->name('search
 // Anime Info Route
 Route::get('/anime-info/{id}', [AnimeInfoController::class, 'anime_info'])->name('anime-info');
 
-Route::get('/anime-list/status/{mal_id}', [BookmarkController::class, 'getCurrentStatus'])->middleware('auth');
+Route::get('/anime-info/status/{mal_id}', [BookmarkController::class, 'getCurrentStatus'])->middleware('auth');
 
 // Error 404 Route
 Route::fallback(function(){
