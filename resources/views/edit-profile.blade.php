@@ -28,11 +28,11 @@
                     <div id="account-details" class="text-start">
                         <div class="d-flex mb-4 ms-4 bg-transparent">
                             <h2 class="ms-4 fw-semibold">Username</h2>
-                            <input type="text" name="username" class="fs-5 fw-medium my-auto text-end form-control" placeholder="{{ $username }}" aria-label="Username" aria-describedby="basic-addon1" minlength="5" value="{{ $username }}">
+                            <input type="text" name="username" class="fs-5 fw-medium my-auto text-end form-control" placeholder="{{ $username }}" aria-label="Username" aria-describedby="basic-addon1" minlength="5" value="{{ $username }}" required>
                         </div>
                         <div class="d-flex mb-4 ms-4 bg-transparent">
                             <h2 class="ms-4 fw-semibold">Email</h2>
-                            <input type="email" name="email"  class="fs-5 fw-medium my-auto text-end form-control" placeholder="{{ $email }}" aria-label="Email" aria-describedby="basic-addon1" value="{{ $email }}">
+                            <input type="email" name="email"  class="fs-5 fw-medium my-auto text-end form-control" placeholder="{{ $email }}" aria-label="Email" aria-describedby="basic-addon1" value="{{ $email }}" required>
                         </div>
                         <div class="d-flex mb-5 ms-4 bg-transparent">
                             <h2 class="ms-4 fw-semibold">Joined On</h2>

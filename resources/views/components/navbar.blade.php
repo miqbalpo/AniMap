@@ -30,6 +30,9 @@
         object-fit: cover;
         border-radius: 50%;
     }
+    .username:first-child{
+        width: max-content;
+    }
     .username{
         max-width: 150px;
     }
@@ -59,11 +62,13 @@
     @endguest
 
     @auth
-        @if (Auth::user()->profile_pic == null)
-            <img src="{{ asset('image/placeholder_pfp.png')}}" alt="">
-        @else
-            <img src="/{{Auth::user()->profile_pic}}" alt="">
-        @endif
+         <button type="button" class="username btn-dropdown ms-auto fw-semibold text-truncate" data-bs-toggle="dropdown" aria-expanded="false">
+            @if (Auth::user()->profile_pic == null)
+                <img src="{{ asset('image/placeholder_pfp.png')}}" alt="">
+            @else
+                <img src="/{{Auth::user()->profile_pic}}" alt="">
+            @endif
+        </button>
         <button type="button" class="username btn-dropdown ms-auto fw-semibold text-truncate" data-bs-toggle="dropdown" aria-expanded="false">{{Auth::user()->name}}
         </button>
         <ul class="account-menu dropdown-menu justify-content-end position-absolute">

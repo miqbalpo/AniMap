@@ -156,7 +156,7 @@
             object-fit: cover;
         }
         #profile-picture button{
-            width: 100%;
+            width: 160px;
         }
         #profile-picture .profile-pic-btn:disabled{
             visibility: hidden;
