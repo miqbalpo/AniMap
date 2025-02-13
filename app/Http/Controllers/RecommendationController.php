@@ -104,18 +104,23 @@ class RecommendationController extends Controller
         $recommendations = [];
 
         if ($queryInput) {
-            $recommendations = array_merge($recommendations, $this->fetchFromJikan(['q' => $queryInput, 'page' => $request->input('page', 1), 'sfw' => 1]));
+            $queryRecommendations = $this->fetchFromJikan(['q' => $queryInput, 'page' => $request->input('page', 1), 'sfw' => 1]);
+            $recommendations = array_merge($recommendations, $queryRecommendations);
         }
 
         if ($genreInput) {
-            $recommendations = array_merge($recommendations, $this->fetchFromJikan(['genres' => $genreInput, 'page' => $request->input('page', 1), 'sfw' => 1]));
+            $genreRecommendations = $this->fetchFromJikan(['genres' => $genreInput, 'page' => $request->input('page', 1), 'sfw' => 1]);
+            $recommendations = array_merge($recommendations, $genreRecommendations);
         }
 
-        foreach (array_merge($likedAnimeIds, $currentlyWatchingAnimeIds, $planToWatchAnimeIds) as $malId) {
-            $recommendations = array_merge($recommendations, $this->fetchAnimeRecommendations($malId, true));
+        $allAnimeIds = array_merge($likedAnimeIds, $currentlyWatchingAnimeIds, $planToWatchAnimeIds);
+
+        foreach ($allAnimeIds as $malId) {
+            $animeRecommendations = $this->fetchAnimeRecommendations($malId, true);
+            $recommendations = array_merge($recommendations, $animeRecommendations);
         }
 
-        if (!empty($likedAnimeIds) || !empty($currentlyWatchingAnimeIds) || !empty($planToWatchAnimeIds)) {
+        if (!empty($allAnimeIds)) {
             shuffle($recommendations);
         }
 

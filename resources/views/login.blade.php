@@ -26,7 +26,7 @@
                 event.preventDefault();
                 Swal.fire({
                     title: "Error",
-                    text: "The account with this email is unavailable.",
+                    text: "Invalid email or password.",
                     icon: "warning",
                     iconColor: "#FE3839",
                     confirmButtonColor: "#2CCCFF"
