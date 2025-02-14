@@ -186,13 +186,16 @@
         }
         #statistics-section .btn{
             width: max-content;
-            margin-top: -100px;
+            margin-top: 25px;
             position: absolute;
             right: 10%;
             background-color: #2CCCFF;
             color: white;
             font-weight: 500;
             border: none;
+        }
+        .spacer{
+            margin-top: 100px;
         }
         #anime-list-section #anime-selection .btn {
             width: 120px;

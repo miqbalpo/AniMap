@@ -54,75 +54,76 @@
                 <h5 class="fw-semibold">Total Animes</h5>
                 <h1 class="fw-semibold">{{ $totalCount }}</h1>
             </div>
-            <div id="statistics_chart" class="mx-auto" style="width: 1000px; height: 540px; margin-top: -100px;"></div>
-            <button type="button" class="btn" onclick="location.href='{{ route('anime-list') }}'">View My Anime List
-            </button>
+            {{-- <div id="statistics_chart" class="mx-auto" style="width: 1000px; height: 540px; margin-top: -100px;"></div> --}}
+            <div style="width:95%;">
+                <canvas id="statistics_chart" style="height: 360px;"></canvas>
+            </div>
+            <button type="button" class="btn" onclick="location.href='{{ route('anime-list') }}'">View My Anime List</button>
+            <div class="spacer"></div>
         </div>
     </div>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load("current", { packages: ["corechart"] });
-        google.charts.setOnLoadCallback(function () {
-            const chartContainer = document.getElementById("statistics_chart");
-            if (chartContainer) {
-                drawChart();
-            }
-        });
 
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ["Element", "Number of Animes", { role: "style" }],
-                ["Liked", {{ $liked }}, "#2CCCFF"],
-                ["Plan to Watch", {{ $plan_to_watch }}, "#57F000"],
-                ["Currently Watching", {{ $currently_watching }}, "#FBE83A"],
-                ["Disliked", {{ $disliked }}, "color: #FFB302"],
-                ["Won't Watch", {{ $wont_watch }}, "color: #FE3839"],
-            ]);
-
-            var options = {
-                width: 960,
-                height: 500,
-                backgroundColor: "transparent",
-                legend: { position: "none" },
-                bars: "horizontal",
-                axes: {
-                    x: {
-                        0: {
-                            side: "top",
-                            label: "Percentage",
-                            textStyle: {
-                                color: "#FFFFFF",
-                                fontName: "Poppins",
-                            },
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>
+    <script>
+        const ctx = document.getElementById('statistics_chart');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Liked", "Plan to Watch", "Currently Watching", "Disliked", "Won't Watch"],
+                datasets: [{
+                    label: 'Number of Animes',
+                    data: [{{ $liked }}, {{ $plan_to_watch }}, {{ $currently_watching }}, {{ $disliked }}, {{ $wont_watch }}],
+                    fill: true,
+                    barThickness: 40,
+                    backgroundColor: [
+                        '#2CCCFF',
+                        '#57F000',
+                        '#FBE83A',
+                        '#FFB302',
+                        '#FE3839'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
                         },
+                        grid: {
+                            color: 'transparent'
+                        }
                     },
-                },
-                bar: { groupWidth: "50%" },
-                hAxis: {
-                    minValue: 0,
-                    format: "decimal",
-                    textStyle: {
-                        color: "#FFFFFF",
-                        fontName: "Poppins",
+                    x: {
+                        ticks: {
+                            color: 'white',
+                            font: {
+                                size: 14,
+                                //weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.5)'
+                        }
                     }
                 },
-                vAxis: {
-                    textStyle: {
-                        color: "#FFFFFF",
-                        fontName: "Poppins",
-                    },
-                },
-                titleTextStyle: {
-                    color: "#FFFFFF",
-                    fontName: "Poppins",
-                    fontSize: 18,
-                },
-            };
-
-            var chart = new google.visualization.BarChart(
-                document.getElementById("statistics_chart")
-            );
-            chart.draw(data, options);
-        }
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white'
+                        }
+                    }
+                }
+            }
+        });
     </script>
 </x-main-layout>
