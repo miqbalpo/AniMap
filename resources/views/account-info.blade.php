@@ -95,8 +95,8 @@
                         ticks: {
                             color: 'white',
                             font: {
-                                size: 14,
-                                weight: 'bold'
+                                family: "Poppins",
+                                size: 14
                             }
                         },
                         grid: {
@@ -107,8 +107,8 @@
                         ticks: {
                             color: 'white',
                             font: {
-                                size: 14,
-                                //weight: 'bold'
+                                family: "Poppins",
+                                size: 14
                             }
                         },
                         grid: {
