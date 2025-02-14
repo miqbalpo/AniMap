@@ -67,7 +67,7 @@
         }
 
         const successMessage = "{{ session('success') }}";
-        const errorMessage = "{{ session('error') }}";
+        const errorMessage = "{{ $errors->first('email') }}";
 
         window.onload = function() {
             if (successMessage) {
@@ -85,7 +85,7 @@
             if (errorMessage) {
                 Swal.fire({
                     title: "Error",
-                    text: "Account failed to be updated.",
+                    text: "This email has been taken.",
                     icon: "warning",
                     iconColor: "#FE3839",
                     confirmButtonColor: "#2CCCFF",

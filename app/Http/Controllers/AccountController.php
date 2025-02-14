@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+
 class AccountController extends Controller
 {
-    //
     public function account_info(Request $request)
     {
         $user = Auth::user();
@@ -50,15 +50,11 @@ class AccountController extends Controller
 
     public function edit(Request $request)
     {
+        $this->validateRequest($request);
+
         $userId = Auth::id();
-
-        $request->validate([
-            'username' => 'string|min:5',
-            'email' => 'string|email|max:255|unique:users,email,' . Auth::id(),
-            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
-        ]);
-
         $profilePicPath = Auth::user()->profile_pic;
+
         if ($request->hasFile('profile_pic')) {
             $profilePicName = time() . '.' . $request->file('profile_pic')->getClientOriginalExtension();
             $request->file('profile_pic')->move(public_path('profile_pics'), $profilePicName);
@@ -72,5 +68,14 @@ class AccountController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Profile updated successfully!');
+    }
+
+    private function validateRequest(Request $request)
+    {
+        $request->validate([
+            'username' => 'string|min:5',
+            'email' => 'string|email|max:255|unique:users,email,' . Auth::id(),
+            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
+        ]);
     }
 }
