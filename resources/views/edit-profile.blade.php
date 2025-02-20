@@ -67,7 +67,8 @@
         }
 
         const successMessage = "{{ session('success') }}";
-        const errorMessage = "{{ $errors->first('email') }}";
+        const emailErrorMessage = "{{ $errors->first('email') }}";
+        const profilePicErrorMessage = "{{ $errors->first('profile_pic') }}";
 
         window.onload = function() {
             if (successMessage) {
@@ -82,10 +83,20 @@
                     }
                 });
             }
-            if (errorMessage) {
+            if (emailErrorMessage) {
                 Swal.fire({
                     title: "Error",
                     text: "This email has been taken.",
+                    icon: "warning",
+                    iconColor: "#FE3839",
+                    confirmButtonColor: "#2CCCFF",
+                    confirmButtonText: "Ok"
+                });
+            }
+            if (profilePicErrorMessage) {
+                Swal.fire({
+                    title: "Error",
+                    text: "The profile picture size must not be greater than 4MB.", // Display the profile picture error message
                     icon: "warning",
                     iconColor: "#FE3839",
                     confirmButtonColor: "#2CCCFF",

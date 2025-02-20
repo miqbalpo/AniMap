@@ -139,12 +139,6 @@
                             </div>
                         </div>
 
-                        @php
-                            usort($char['voice_actors'], function ($a, $b) {
-                                return ($b['language'] === 'Japanese') - ($a['language'] === 'Japanese');
-                            });
-                        @endphp
-
                         <div class="d-flex">
                             @foreach ($char['voice_actors'] as $cast)
                                 <div class="me-3 align-center">
@@ -298,6 +292,7 @@
                 Swal.fire({
                     title: "Sign-in Required",
                     text: "Sign in first to complete this action.",
+                    //text: error,
                     icon: "warning",
                     iconColor: "#FE3839",
                     confirmButtonColor: "#2CCCFF",

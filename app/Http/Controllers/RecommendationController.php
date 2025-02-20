@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\SearchHistories;
+use App\Models\AnimeLists;
 
 class RecommendationController extends Controller
 {
@@ -69,7 +70,7 @@ class RecommendationController extends Controller
 
     private function getUserAnimeList($user)
     {
-        return is_string($user->anime_list) ? json_decode($user->anime_list, true) : ($user->anime_list ?? []);
+        return AnimeLists::where('user_id', $user->id)->get()->toArray();
     }
 
     private function categorizeAnimeList($animeList)

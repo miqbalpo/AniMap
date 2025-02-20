@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
+use App\Models\AnimeInfos;
+use App\Models\AnimeLists;
 
 class AnimeListController extends Controller
 {
@@ -40,28 +42,38 @@ class AnimeListController extends Controller
 
     private function getAnimeList(User $user)
     {
-        return is_string($user->anime_list) ? json_decode($user->anime_list, true) : ($user->anime_list ?? []);
+        // Fetch the anime list from the anime_lists table for the authenticated user
+        return AnimeLists::where('user_id', $user->id)->orderBy('created_at', 'desc')->get()->toArray();
     }
 
     private function getAnimeData(array $animeList)
     {
         $animeData = [];
 
+        $malIds = array_column($animeList, 'mal_id');
+        $animeInfos = AnimeInfos::whereIn('mal_id', $malIds)
+            ->get();
+
+        $animeInfoMap = $animeInfos->keyBy('mal_id');
+
         foreach ($animeList as $anime) {
             if (isset($anime['mal_id'])) {
-                $animeInfo = $this->getAnimeInfo($anime['mal_id']);
-                $status = $this->getStatusLabel($anime['status']);
-
-                $animeData[] = [
-                    'mal_id' => $anime['mal_id'],
-                    'title' => $animeInfo['title'] ?? 'Unknown',
-                    'score' => $animeInfo['score'] ?? 'N/A',
-                    'premiered' => $animeInfo['premiered'] ?? 'Unknown',
-                    'type' => $animeInfo['type'] ?? 'Unknown',
-                    'studios' => $animeInfo['studios'] ?? 'Unknown',
-                    'status' => $status,
-                    'thumbnail' => $animeInfo['thumbnail'] ?? 'default_thumbnail.jpg',
-                ];
+                if ($animeInfoMap->has($anime['mal_id'])) {
+                    $animeInfo = $animeInfoMap->get($anime['mal_id']);
+                    $status = $this->getStatusLabel($anime['status']);
+                    $animeData[] = [
+                        'mal_id' => $animeInfo->mal_id,
+                        'title' => $animeInfo->anime_title,
+                        'score' => $animeInfo->score,
+                        'premiered' => $animeInfo->premiered,
+                        'type' => $animeInfo->type,
+                        'studios' => $animeInfo->studios,
+                        'status' => $status,
+                        'thumbnail' => $animeInfo->thumbnail,
+                    ];
+                } else {
+                    Log::warning('Anime info not found in database', ['mal_id' => $anime['mal_id']]);
+                }
             } else {
                 Log::warning('Missing mal_id in anime list', ['anime' => $anime]);
             }
@@ -70,24 +82,24 @@ class AnimeListController extends Controller
         return $animeData;
     }
 
-    private function getAnimeInfo($mal_id)
-    {
-        $animeInfoResponse = Http::get("https://api.jikan.moe/v4/anime/{$mal_id}");
-        $animeInfo = $animeInfoResponse->json();
+    // private function getAnimeInfo($mal_id)
+    // {
+    //     $animeInfoResponse = Http::get("https://api.jikan.moe/v4/anime/{$mal_id}");
+    //     $animeInfo = $animeInfoResponse->json();
 
-        return [
-            'title' => $animeInfo['data']['title'] ?? 'Unknown',
-            'score' => $animeInfo['data']['score'] ?? 'N/A',
-            'premiered' => isset($animeInfo['data']['season'], $animeInfo['data']['year'])
-                            ? ucfirst("{$animeInfo['data']['season']} {$animeInfo['data']['year']}")
-                            : 'Unknown',
-            'type' => $animeInfo['data']['type'] ?? 'Unknown',
-            'studios' => !empty($animeInfo['data']['studios'])
-                        ? implode(', ', array_column($animeInfo['data']['studios'], 'name'))
-                        : 'Unknown',
-            'thumbnail' => $animeInfo['data']['images']['jpg']['image_url'] ?? 'default_thumbnail.jpg',
-        ];
-    }
+    //     return [
+    //         'title' => $animeInfo['data']['title'] ?? 'Unknown',
+    //         'score' => $animeInfo['data']['score'] ?? 'N/A',
+    //         'premiered' => isset($animeInfo['data']['season'], $animeInfo['data']['year'])
+    //                         ? ucfirst("{$animeInfo['data']['season']} {$animeInfo['data']['year']}")
+    //                         : 'Unknown',
+    //         'type' => $animeInfo['data']['type'] ?? 'Unknown',
+    //         'studios' => !empty($animeInfo['data']['studios'])
+    //                     ? implode(', ', array_column($animeInfo['data']['studios'], 'name'))
+    //                     : 'Unknown',
+    //         'thumbnail' => $animeInfo['data']['images']['jpg']['image_url'] ?? 'default_thumbnail.jpg',
+    //     ];
+    // }
 
     private function getStatusLabel($status)
     {

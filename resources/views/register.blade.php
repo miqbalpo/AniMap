@@ -26,7 +26,7 @@
         <button type="submit" class="btn btn-primary d-block mx-auto" style="width: 50%; background-color: #1C8EDB; border: none;">Create Account</button>
     </form>
     <p class="mt-4 text-center">
-        Already have an account? <a class="link-opacity-100 fw-bold" href="#" style="color: #BBE1FA;">Click here to login</a>
+        Already have an account? <a class="link-opacity-100 fw-bold" href="{{ route('login') }}" style="color: #BBE1FA;">Click here to login</a>
     </p>
 
     <script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\AnimeLists;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
@@ -22,20 +23,17 @@ class AccountController extends Controller
         ];
         $totalCount = 0;
 
-        if ($user && !empty($user->anime_list)) {
-            $animeListJson = $user->anime_list;
+        if ($user) {
+            // Fetch the anime list from the anime_lists table for the authenticated user
+            $animeList = AnimeLists::where('user_id', $user->id)->get();
 
-            $animeList = is_string($animeListJson) ? json_decode($animeListJson, true) : $animeListJson;
+            foreach ($animeList as $anime) {
+                if (isset($anime->status)) {
+                    $status = $anime->status;
+                    $totalCount++;
 
-            if (is_array($animeList)) {
-                foreach ($animeList as $anime) {
-                    if (isset($anime['status'])) {
-                        $status = $anime['status'];
-                        $totalCount++;
-
-                        if (array_key_exists($status, $statusCounts)) {
-                            $statusCounts[$status]++;
-                        }
+                    if (array_key_exists($status, $statusCounts)) {
+                        $statusCounts[$status]++;
                     }
                 }
             }
@@ -56,6 +54,10 @@ class AccountController extends Controller
         $profilePicPath = Auth::user()->profile_pic;
 
         if ($request->hasFile('profile_pic')) {
+            if ($request->file('profile_pic')->getSize() > 4096 * 1024) {
+                return redirect()->back()->withErrors(['profile_pic' => 'The profile picture must not be larger than 4 MB.']);
+            }
+
             $profilePicName = time() . '.' . $request->file('profile_pic')->getClientOriginalExtension();
             $request->file('profile_pic')->move(public_path('profile_pics'), $profilePicName);
             $profilePicPath = 'profile_pics/' . $profilePicName;
