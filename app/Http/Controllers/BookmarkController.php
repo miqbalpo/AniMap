@@ -21,27 +21,25 @@ class BookmarkController extends Controller
         if (!$user) {
             return $this->userNotFoundResponse();
         }
-        $animeList = $this->getAnimeList($user);
-        if (!is_array($animeList)) {
-            return $this->invalidAnimeListResponse($user);
-        }
-        $animeList = $this->updateAnimeListStatus($animeList, $request);
-        $user->anime_list = $animeList;
+
+        $this->updateAnimeListStatus($user, $request);
 
         return response()->json(['success' => true, 'message' => 'Anime list updated successfully']);
     }
     public function getCurrentStatus($mal_id)
     {
         $user = Auth::user();
+
         if (!$user instanceof User) {
             return response()->json(['success' => false, 'message' => 'User not authenticated'], 401);
         }
-        $animeList = $this->getAnimeList($user);
-        if (!is_array($animeList)) {
-            Log::error('Anime list is not an array', ['anime_list' => $user->anime_list]);
-            return response()->json(['success' => false, 'message' => 'Invalid anime list format'], 500);
-        }
-        $status = $this->findAnimeStatus($animeList, $mal_id);
+
+        $anime = AnimeLists::where('user_id', $user->id)
+                            ->where('mal_id', $mal_id)
+                            ->first();
+
+        $status = $anime ? $anime->status : 'unwatched';
+
         return response()->json(['success' => true, 'status' => $status]);
     }
     private function validateRequest(Request $request)
@@ -68,62 +66,39 @@ class BookmarkController extends Controller
         Log::error('User not found', ['userId' => $userId]);
         return response()->json(['success' => false, 'message' => 'User not found'], 404);
     }
-    private function getAnimeList(User $user)
-    {
-        // Fetch the anime list from the anime_lists table for the authenticated user
-        return AnimeLists::where('user_id', $user->id)->get()->toArray();
-    }
-    private function invalidAnimeListResponse(User $user)
-    {
-        Log::error('Anime list is not an array', ['anime_list' => $user->anime_list]);
-        return response()->json(['success' => false, 'message' => 'Invalid anime list format'], 500);
-    }
-    private function updateAnimeListStatus(array $animeList, Request $request)
+    // private function getAnimeList(User $user)
+    // {
+    //     return AnimeLists::where('user_id', $user->id)->get()->toArray();
+    // }
+    // private function invalidAnimeListResponse(User $user)
+    // {
+    //     Log::error('Anime list is not an array', ['anime_list' => $user->anime_list]);
+    //     return response()->json(['success' => false, 'message' => 'Invalid anime list format'], 500);
+    // }
+    private function updateAnimeListStatus(User $user, Request $request)
     {
         if ($request->status === 'unwatched') {
-            return $this->removeAnimeFromList($animeList, $request->mal_id);
+            return $this->removeAnimeFromList($user, $request->mal_id);
         } else {
-            return $this->updateOrAddAnimeStatus($animeList, $request->mal_id, $request->status);
+            return $this->updateOrAddAnimeStatus($user, $request->mal_id, $request->status);
         }
     }
-    private function removeAnimeFromList(array $animeList, $mal_id)
+    private function removeAnimeFromList(User $user, $mal_id)
     {
-        return array_filter($animeList, function ($anime) use ($mal_id) {
-            return $anime['mal_id'] !== $mal_id;
-        });
+        return AnimeLists::where('user_id', $user->id)
+        ->where('mal_id', $mal_id)
+        ->delete();
     }
-    private function updateOrAddAnimeStatus(array $animeList, $mal_id, $status)
+    private function updateOrAddAnimeStatus(User $user, $mal_id, $status)
     {
-        $existingAnime = AnimeLists::where('user_id', Auth::id())->where('mal_id', $mal_id)->first();
-        if ($existingAnime) {
-            $existingAnime->update(['status' => $status]);
-        } else {
-            AnimeLists::create(['user_id' => Auth::id(), 'mal_id' => $mal_id, 'status' => $status,]);
-        }
-        $found = false;
-        foreach ($animeList as &$anime) {
-            if (isset($anime['mal_id']) && $anime['mal_id'] == $mal_id) {
-                $anime['status'] = $status;
-                $found = true;
-                break;
-            }
-        }
-        if (!$found) {
-            $animeList[] = ['mal_id' => $mal_id, 'status' => $status];
-        }
-        return $animeList;
+        AnimeLists::updateOrCreate(
+            ['user_id' => $user->id, 'mal_id' => $mal_id], // Conditions to find the record
+            ['status' => $status] // Data to update or create
+        );
     }
-    private function saveErrorResponse()
-    {
-        return response()->json(['success' => false, 'message' => 'Failed to update anime list.'], 500);
-    }
-    private function findAnimeStatus(array $animeList, $mal_id)
-    {
-        foreach ($animeList as $anime) {
-            if ($anime['mal_id'] == $mal_id) {
-                return $anime['status'];
-            }
-        }
-        return 'default';
-    }
+
+    // private function saveErrorResponse()
+    // {
+    //     return response()->json(['success' => false, 'message' => 'Failed to update anime list.'], 500);
+    // }
 }
