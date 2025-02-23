@@ -12,12 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         //
+        // Schema::create('anime_lists', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->timestamps();
+        //     $table->string('user_id');
+        //     $table->string('mal_id');
+        //     $table->string('status');
+        // });
         Schema::create('anime_lists', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('user_id');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('mal_id');
             $table->string('status');
+            $table->foreign('mal_id')->references('mal_id')->on('anime_infos')->onDelete('cascade');
         });
     }
 
