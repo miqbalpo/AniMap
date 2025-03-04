@@ -50,6 +50,14 @@ class AnimeListController extends Controller
     {
         $animeData = [];
 
+        $statusMapping = [
+            'liked' => 'Liked',
+            'plan_to_watch' => 'Plan to Watch',
+            'currently_watching' => 'Currently Watching',
+            'disliked' => 'Disliked',
+            'wont_watch' => "Won't Watch"
+        ];
+
         $malIds = array_column($animeList, 'mal_id');
         $animeInfos = AnimeInfos::whereIn('mal_id', $malIds)
             ->get();
@@ -60,7 +68,9 @@ class AnimeListController extends Controller
             if (isset($anime['mal_id'])) {
                 if ($animeInfoMap->has($anime['mal_id'])) {
                     $animeInfo = $animeInfoMap->get($anime['mal_id']);
-                    $status = $this->getStatusLabel($anime['status']);
+
+                    $status = $statusMapping[$anime['status']] ?? 'Unknown';
+
                     $animeData[] = [
                         'mal_id' => $animeInfo->mal_id,
                         'title' => $animeInfo->anime_title,
@@ -100,17 +110,4 @@ class AnimeListController extends Controller
     //         'thumbnail' => $animeInfo['data']['images']['jpg']['image_url'] ?? 'default_thumbnail.jpg',
     //     ];
     // }
-
-    private function getStatusLabel($status)
-    {
-        $statusMapping = [
-            'liked' => 'Liked',
-            'plan_to_watch' => 'Plan to Watch',
-            'currently_watching' => 'Currently Watching',
-            'disliked' => 'Disliked',
-            'wont_watch' => "Won't Watch"
-        ];
-
-        return $statusMapping[$status] ?? 'Unknown';
-    }
 }
