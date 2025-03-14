@@ -24,15 +24,18 @@ class AnimeListController extends Controller
 
         $animeData = $this->getAnimeData($animeList);
 
-        return view('anime-list', [
+        $animeListPage = view('anime-list', [
             'title' => 'My Anime List',
             'animeData' => $animeData,
         ]);
+
+        return $animeListPage;
     }
 
     private function isUserAuthenticated()
     {
-        return Auth::check();
+        $isAuthenticated = Auth::check();
+        return $isAuthenticated;
     }
 
     private function redirectToLogin()
@@ -42,8 +45,8 @@ class AnimeListController extends Controller
 
     private function getAnimeList(User $user)
     {
-        // Fetch the anime list from the anime_lists table for the authenticated user
-        return AnimeLists::where('user_id', $user->id)->orderBy('created_at', 'desc')->get()->toArray();
+        $animeLists = AnimeLists::where('user_id', $user->id)->orderBy('created_at', 'desc')->get()->toArray();
+        return $animeLists;
     }
 
     private function getAnimeData(array $animeList)
@@ -92,22 +95,4 @@ class AnimeListController extends Controller
         return $animeData;
     }
 
-    // private function getAnimeInfo($mal_id)
-    // {
-    //     $animeInfoResponse = Http::get("https://api.jikan.moe/v4/anime/{$mal_id}");
-    //     $animeInfo = $animeInfoResponse->json();
-
-    //     return [
-    //         'title' => $animeInfo['data']['title'] ?? 'Unknown',
-    //         'score' => $animeInfo['data']['score'] ?? 'N/A',
-    //         'premiered' => isset($animeInfo['data']['season'], $animeInfo['data']['year'])
-    //                         ? ucfirst("{$animeInfo['data']['season']} {$animeInfo['data']['year']}")
-    //                         : 'Unknown',
-    //         'type' => $animeInfo['data']['type'] ?? 'Unknown',
-    //         'studios' => !empty($animeInfo['data']['studios'])
-    //                     ? implode(', ', array_column($animeInfo['data']['studios'], 'name'))
-    //                     : 'Unknown',
-    //         'thumbnail' => $animeInfo['data']['images']['jpg']['image_url'] ?? 'default_thumbnail.jpg',
-    //     ];
-    // }
 }

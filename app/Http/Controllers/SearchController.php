@@ -35,7 +35,7 @@ class SearchController extends Controller
         $this->logSearchHistory($query, $genreInput, $minScore, $maxScore, $typeInput, $ratingInput, $yearInput);
 
         //dd($apiUrl, $queryParams);
-        return view('search-results', [
+        $searchResultsPage = view('search-results', [
             'title' => 'Anime Search',
             'data' => $data,
             'genreList' => $genreList,
@@ -50,6 +50,8 @@ class SearchController extends Controller
             'maxScore' => $maxScore,
             'oldYear' => $yearInput,
         ]);
+
+        return $searchResultsPage;
     }
 
     private function getGenreList()
@@ -138,10 +140,11 @@ class SearchController extends Controller
     private function determineApiUrl($title, $genreInput, $minScore, $maxScore, $yearInput)
     {
         if (empty($title) && empty($genreInput) && ($minScore === null && $maxScore === null) && !$yearInput) {
-            return "https://api.jikan.moe/v4/top/anime";
+            $apiUrl = "https://api.jikan.moe/v4/top/anime";
         } else {
-            return "https://api.jikan.moe/v4/anime";
+            $apiUrl = "https://api.jikan.moe/v4/anime";
         }
+        return $apiUrl;
     }
 
     private function getOldGenre($genreInput, $genreList)

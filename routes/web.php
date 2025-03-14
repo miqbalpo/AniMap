@@ -33,7 +33,7 @@ Route::middleware(['guest'])->group(function () {
 });
 
 // Routes for Users
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'preventBackHistory'])->group(function () {
     // Anime Recommendations Home Route
     Route::get('/home', [RecommendationController::class, 'homepage'])->name('home');
 

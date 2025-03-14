@@ -17,10 +17,8 @@ class BookmarkController extends Controller
         if (!$this->isUserAuthenticated()) {
             return $this->unauthenticatedResponse();
         }
+
         $user = $this->getAuthenticatedUser();
-        if (!$user) {
-            return $this->userNotFoundResponse();
-        }
 
         $this->updateAnimeListStatus($user, $request);
 
@@ -48,7 +46,8 @@ class BookmarkController extends Controller
     }
     private function isUserAuthenticated()
     {
-        return Auth::check();
+        $isAuthenticated = Auth::check();
+        return $isAuthenticated;
     }
     private function unauthenticatedResponse()
     {
@@ -57,24 +56,11 @@ class BookmarkController extends Controller
     }
     private function getAuthenticatedUser()
     {
-        $userId = Auth::id();
-        return User::find($userId);
+        $userId= User::find(Auth::id());
+        return $userId;
     }
-    private function userNotFoundResponse()
-    {
-        $userId = Auth::id();
-        Log::error('User not found', ['userId' => $userId]);
-        return response()->json(['success' => false, 'message' => 'User not found'], 404);
-    }
-    // private function getAnimeList(User $user)
-    // {
-    //     return AnimeLists::where('user_id', $user->id)->get()->toArray();
-    // }
-    // private function invalidAnimeListResponse(User $user)
-    // {
-    //     Log::error('Anime list is not an array', ['anime_list' => $user->anime_list]);
-    //     return response()->json(['success' => false, 'message' => 'Invalid anime list format'], 500);
-    // }
+
+
     private function updateAnimeListStatus(User $user, Request $request)
     {
         if ($request->status === 'unwatched') {
@@ -97,8 +83,5 @@ class BookmarkController extends Controller
         );
     }
 
-    // private function saveErrorResponse()
-    // {
-    //     return response()->json(['success' => false, 'message' => 'Failed to update anime list.'], 500);
-    // }
+
 }

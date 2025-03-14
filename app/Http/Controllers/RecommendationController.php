@@ -56,21 +56,24 @@ class RecommendationController extends Controller
             Log::error('Recommendations array is empty after processing', ['recommendations' => $recommendations]);
         }
 
-        //dd($recommendations);
-        return $this->paginateAndReturnView($request, $recommendations);
+        $recommendationsPage = $this->paginateAndReturnView($request, $recommendations);
+
+        return $recommendationsPage;
     }
 
 
     private function getLatestSearch($userId)
     {
-        return SearchHistories::where('user_id', $userId)
+        $latestSearch = SearchHistories::where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->first();
+        return $latestSearch;
     }
 
     private function getUserAnimeList($user)
     {
-        return AnimeLists::where('user_id', $user->id)->get()->toArray();
+        $userAnimeList = AnimeLists::where('user_id', $user->id)->get()->toArray();
+        return $userAnimeList;
     }
 
     private function categorizeAnimeList($animeList)
@@ -185,12 +188,14 @@ class RecommendationController extends Controller
             ['path' => $request->url(), 'query' => $request->query()]
         );
 
-        return view('welcome', [
+        $paginationData = view('welcome', [
             'title' => 'Welcome to AniMap',
             'data' => ['data' => $paginatedRecommendations],
             'currentPage' => $currentPage,
             'lastPage' => $paginatedRecommendations->lastPage(),
         ]);
+        
+        return $paginationData;
     }
 }
 

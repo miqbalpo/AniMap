@@ -16,18 +16,22 @@ class AnimeInfoController extends Controller
         $staffData = $this->fetchStaffData($id);
 
         if ($animeInfo) {
-            return view('anime-info', $this->prepareViewDataFromDatabase($animeInfo));
+            $animeInfoPage = view('anime-info', $this->prepareViewDataFromDatabase($animeInfo));
         } else {
             $this->insertAnimeInfo($animeData, $charactersData, $staffData);
 
-            return view('anime-info', $this->prepareViewData($animeData, $charactersData, $staffData));
+            $animeInfoPage = view('anime-info', $this->prepareViewData($animeData, $charactersData, $staffData));
         }
+
+        return $animeInfoPage;
     }
 
     private function fetchAnimeData($id)
     {
         $response = Http::get("https://api.jikan.moe/v4/anime/{$id}/full");
-        return $response->json()['data'] ?? [];
+        $animeData = $response->json()['data'] ?? [];
+
+        return $animeData;
     }
 
     private function fetchCharactersData($id)
@@ -49,12 +53,14 @@ class AnimeInfoController extends Controller
     private function fetchStaffData($id)
     {
         $response = Http::get("https://api.jikan.moe/v4/anime/{$id}/staff");
-        return $response->json()['data'] ?? [];
+        $staffData = $response->json()['data'] ?? [];
+
+        return $staffData;
     }
 
     private function prepareViewData($animeData, $charactersData, $staffData)
     {
-        return [
+        $animeInfo = [
             'title' => 'Anime Information',
             'mal_id' => $animeData['mal_id'] ?? 'Unknown',
             'animeTitle' => $animeData['title'] ?? 'Unknown',
@@ -81,11 +87,13 @@ class AnimeInfoController extends Controller
             'songs' => $animeData['theme'] ?? 'Unknown',
             'trailer' => $animeData['trailer']['youtube_id'] ?? 'Unknown',
         ];
+
+        return $animeInfo;
     }
 
     private function prepareViewDataFromDatabase($animeInfo)
     {
-        return [
+        $animeInfo = [
             'title' => 'Anime Information',
             'mal_id' => $animeInfo->mal_id,
             'animeTitle' => $animeInfo->anime_title,
@@ -112,6 +120,8 @@ class AnimeInfoController extends Controller
             'songs' => json_decode($animeInfo->songs, true),
             'trailer' => $animeInfo->trailer,
         ];
+
+        return $animeInfo;
     }
 
     private function insertAnimeInfo($animeData, $charactersData, $staffData)
