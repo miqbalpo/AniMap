@@ -50,7 +50,6 @@ class SearchController extends Controller
             'maxScore' => $maxScore,
             'oldYear' => $yearInput,
         ]);
-
         return $searchResultsPage;
     }
 

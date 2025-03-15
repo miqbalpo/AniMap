@@ -28,7 +28,6 @@ class AnimeListController extends Controller
             'title' => 'My Anime List',
             'animeData' => $animeData,
         ]);
-
         return $animeListPage;
     }
 
@@ -45,8 +44,8 @@ class AnimeListController extends Controller
 
     private function getAnimeList(User $user)
     {
-        $animeLists = AnimeLists::where('user_id', $user->id)->orderBy('created_at', 'desc')->get()->toArray();
-        return $animeLists;
+        $animeList = AnimeLists::where('user_id', $user->id)->orderBy('created_at', 'desc')->get()->toArray();
+        return $animeList;
     }
 
     private function getAnimeData(array $animeList)

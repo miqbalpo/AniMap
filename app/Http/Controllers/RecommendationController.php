@@ -194,7 +194,7 @@ class RecommendationController extends Controller
             'currentPage' => $currentPage,
             'lastPage' => $paginatedRecommendations->lastPage(),
         ]);
-        
+
         return $paginationData;
     }
 }

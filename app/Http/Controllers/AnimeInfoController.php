@@ -19,11 +19,10 @@ class AnimeInfoController extends Controller
             $animeInfoPage = view('anime-info', $this->prepareViewDataFromDatabase($animeInfo));
         } else {
             $this->insertAnimeInfo($animeData, $charactersData, $staffData);
-
             $animeInfoPage = view('anime-info', $this->prepareViewData($animeData, $charactersData, $staffData));
         }
-
         return $animeInfoPage;
+
     }
 
     private function fetchAnimeData($id)

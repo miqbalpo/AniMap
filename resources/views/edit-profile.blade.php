@@ -96,7 +96,7 @@
             if (profilePicErrorMessage) {
                 Swal.fire({
                     title: "Error",
-                    text: "The profile picture size must not be greater than 4MB.", // Display the profile picture error message
+                    text: "The profile picture size must not be greater than 4MB.",
                     icon: "warning",
                     iconColor: "#FE3839",
                     confirmButtonColor: "#2CCCFF",

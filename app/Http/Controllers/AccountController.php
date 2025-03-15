@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-    public function account_info(Request $request)
+    public function account_info()
     {
         $user = Auth::user();
 

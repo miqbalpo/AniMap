@@ -31,7 +31,8 @@
 
     <script>
         const successMessage = "{{ session('success') }}";
-        const errorMessage = "{{ session('errors') }}";
+        const errorMessage = "{{ $errors->first('email') }}";
+        const profilePicErrorMessage = "{{ $errors->first('profile_pic') }}";
 
         window.onload = function() {
             if (successMessage) {
@@ -54,6 +55,18 @@
                 Swal.fire({
                     title: "Error",
                     text: "The email has already been taken.",
+                    icon: "warning",
+                    iconColor: "#FE3839",
+                    confirmButtonColor: "#2CCCFF"
+                });
+            }
+
+            if (profilePicErrorMessage) {
+                console.log('Account creation failed:', profilePicErrorMessage);
+                event.preventDefault();
+                Swal.fire({
+                    title: "Error",
+                    text: "The profile picture size must not be greater than 4MB.",
                     icon: "warning",
                     iconColor: "#FE3839",
                     confirmButtonColor: "#2CCCFF"

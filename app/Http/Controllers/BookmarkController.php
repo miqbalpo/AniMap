@@ -64,14 +64,14 @@ class BookmarkController extends Controller
     private function updateAnimeListStatus(User $user, Request $request)
     {
         if ($request->status === 'unwatched') {
-            return $this->removeAnimeFromList($user, $request->mal_id);
+            $this->removeAnimeFromList($user, $request->mal_id);
         } else {
-            return $this->updateOrAddAnimeStatus($user, $request->mal_id, $request->status);
+            $this->updateOrAddAnimeStatus($user, $request->mal_id, $request->status);
         }
     }
     private function removeAnimeFromList(User $user, $mal_id)
     {
-        return AnimeLists::where('user_id', $user->id)
+        AnimeLists::where('user_id', $user->id)
         ->where('mal_id', $mal_id)
         ->delete();
     }
