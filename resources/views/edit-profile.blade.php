@@ -11,7 +11,7 @@
     <div class="bg-transparent mx-auto text-white">
         <div id="account-edit-section" class="mx-auto mb-5">
             <h1 class="mb-4 fw-semibold text-center">Edit Profile</h1>
-            <form action="{{ route('account.save-info') }}" method="POST" enctype="multipart/form-data">
+            <form id="edit-profile" action="{{ route('account.save-info') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="d-flex bg-transparent">
                     <div id="profile-picture">
@@ -34,10 +34,19 @@
                             <h2 class="ms-4 fw-semibold">Email</h2>
                             <input type="email" name="email"  class="fs-5 fw-medium my-auto text-end form-control" placeholder="{{ $email }}" aria-label="Email" aria-describedby="basic-addon1" value="{{ $email }}" required>
                         </div>
+                        <div class="d-flex mb-4 ms-4 bg-transparent">
+                            <h2 class="ms-4 fw-semibold">New Password</h2>
+                            <input type="password" name="password"  class="fs-5 fw-medium my-auto text-end form-control" placeholder="" aria-label="Password" aria-describedby="basic-addon1" minlength="8">
+                        </div>
                         <div class="d-flex mb-5 ms-4 bg-transparent">
+                            <h2 class="ms-4 fw-semibold">Confirm Password</h2>
+                            <input type="password" name="confirm_password"  class="fs-5 fw-medium my-auto text-end form-control" placeholder="" aria-label="Password" aria-describedby="basic-addon1" minlength="8">
+                        </div>
+                        <div id="password-warning" class="text-danger fs-5 ms-5" style="display: none; margin-top: -20px;">The passwords must match.</div>
+                        {{-- <div class="d-flex mb-5 ms-4 bg-transparent">
                             <h2 class="ms-4 fw-semibold">Joined On</h2>
                             <h5 class="my-auto text-end">{{ $created_at }}</h5>
-                        </div>
+                        </div> --}}
                         <div class="d-flex ms-4 bg-transparent justify-content-end">
                             <button type="submit" class="btn mx-1">Save Changes
                             </button>
@@ -65,6 +74,20 @@
                 reader.readAsDataURL(file);
             }
         }
+
+        document.getElementById('edit-profile').addEventListener('submit', function(event) {
+            const password = this.password.value;
+            const confirmPassword = this.confirm_password.value;
+            const warningMessage = document.getElementById('password-warning');
+
+            // Reset warning message
+            warningMessage.style.display = 'none';
+
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                warningMessage.style.display = 'block';
+            }
+        });
 
         const successMessage = "{{ session('success') }}";
         const emailErrorMessage = "{{ $errors->first('email') }}";

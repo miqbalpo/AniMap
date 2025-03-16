@@ -53,6 +53,7 @@ class AccountController extends Controller
         $userId = Auth::id();
         $profilePicPath = Auth::user()->profile_pic;
 
+        // Handle profile picture upload
         if ($request->hasFile('profile_pic')) {
             if ($request->file('profile_pic')->getSize() > 4096 * 1024) {
                 return redirect()->back()->withErrors(['profile_pic' => 'The profile picture must not be larger than 4 MB.']);
@@ -63,11 +64,20 @@ class AccountController extends Controller
             $profilePicPath = 'profile_pics/' . $profilePicName;
         }
 
-        User::where('id', $userId)->update([
+        // Prepare data for update
+        $updateData = [
             'email' => $request->email,
             'name' => $request->username,
-            'profile_pic' => $profilePicPath
-        ]);
+            'profile_pic' => $profilePicPath,
+        ];
+
+        // Update password only if a new password is provided
+        if ($request->filled('password')) {
+            $updateData['password'] = Hash::make($request->password);
+        }
+
+        // Update the user record
+        User::where('id', $userId)->update($updateData);
 
         return redirect()->back()->with('success', 'Profile updated successfully!');
     }
@@ -77,6 +87,7 @@ class AccountController extends Controller
         $request->validate([
             'username' => 'string|min:5',
             'email' => 'string|email|max:255|unique:users,email,' . Auth::id(),
+            'password' => 'nullable|string|min:8',
             'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
         ]);
     }
