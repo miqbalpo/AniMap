@@ -11,13 +11,14 @@ class AnimeInfoController extends Controller
     public function anime_info($id)
     {
         $animeInfo = AnimeInfos::where('mal_id', $id)->first();
-        $animeData = $this->fetchAnimeData($id);
-        $charactersData = $this->fetchCharactersData($id);
-        $staffData = $this->fetchStaffData($id);
 
         if ($animeInfo) {
             $animeInfoPage = view('anime-info', $this->prepareViewDataFromDatabase($animeInfo));
         } else {
+            $animeData = $this->fetchAnimeData($id);
+            $charactersData = $this->fetchCharactersData($id);
+            $staffData = $this->fetchStaffData($id);
+            
             $this->insertAnimeInfo($animeData, $charactersData, $staffData);
             $animeInfoPage = view('anime-info', $this->prepareViewData($animeData, $charactersData, $staffData));
         }

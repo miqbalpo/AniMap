@@ -36,11 +36,11 @@
                         </div>
                         <div class="d-flex mb-4 ms-4 bg-transparent">
                             <h2 class="ms-4 fw-semibold">New Password</h2>
-                            <input type="password" name="password"  class="fs-5 fw-medium my-auto text-end form-control" placeholder="" aria-label="Password" aria-describedby="basic-addon1" minlength="8">
+                            <input type="password" name="password"  class="fs-5 fw-medium my-auto text-end form-control" placeholder="New Password" aria-label="Password" aria-describedby="basic-addon1" minlength="8">
                         </div>
                         <div class="d-flex mb-5 ms-4 bg-transparent">
                             <h2 class="ms-4 fw-semibold">Confirm Password</h2>
-                            <input type="password" name="confirm_password"  class="fs-5 fw-medium my-auto text-end form-control" placeholder="" aria-label="Password" aria-describedby="basic-addon1" minlength="8">
+                            <input type="password" name="confirm_password"  class="fs-5 fw-medium my-auto text-end form-control" placeholder="Confirm New Password" aria-label="Password" aria-describedby="basic-addon1" minlength="8">
                         </div>
                         <div id="password-warning" class="text-danger fs-5 ms-5" style="display: none; margin-top: -20px;">The passwords must match.</div>
                         {{-- <div class="d-flex mb-5 ms-4 bg-transparent">
