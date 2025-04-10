@@ -63,7 +63,7 @@ class SearchController extends Controller
         $genreListResponse = array_filter($genres, function($genre) use ($genresToExclude) {
             return !in_array($genre['name'], $genresToExclude);
         });
-        return $genreListResponse;
+        return array_values($genreListResponse);
     }
 
     private function buildQueryParams(Request $request, $genreInput, $scoreInput, &$minScore, &$maxScore, $typeInput, $ratingInput, $yearInput, $title, $page)
