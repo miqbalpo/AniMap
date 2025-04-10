@@ -56,7 +56,14 @@ class SearchController extends Controller
     private function getGenreList()
     {
         $genreListResponse = Http::get("https://api.jikan.moe/v4/genres/anime");
-        return $genreListResponse->json()['data'];
+        //return $genreListResponse->json()['data'];
+        $genres = $genreListResponse->json()['data'];
+
+        $genresToExclude = ['Hentai', 'Ecchi', 'Erotica'];
+        $genreListResponse = array_filter($genres, function($genre) use ($genresToExclude) {
+            return !in_array($genre['name'], $genresToExclude);
+        });
+        return $genreListResponse;
     }
 
     private function buildQueryParams(Request $request, $genreInput, $scoreInput, &$minScore, &$maxScore, $typeInput, $ratingInput, $yearInput, $title, $page)

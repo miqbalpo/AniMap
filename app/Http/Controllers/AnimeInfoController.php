@@ -16,9 +16,13 @@ class AnimeInfoController extends Controller
             $animeInfoPage = view('anime-info', $this->prepareViewDataFromDatabase($animeInfo));
         } else {
             $animeData = $this->fetchAnimeData($id);
+            if (!$animeData) {
+                abort(404);
+            }
+
             $charactersData = $this->fetchCharactersData($id);
             $staffData = $this->fetchStaffData($id);
-            
+
             $this->insertAnimeInfo($animeData, $charactersData, $staffData);
             $animeInfoPage = view('anime-info', $this->prepareViewData($animeData, $charactersData, $staffData));
         }

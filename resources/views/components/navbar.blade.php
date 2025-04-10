@@ -43,11 +43,6 @@
         border: none;
         background: transparent;
     }
-    .account-menu{
-        position: absolute !important;
-        top: 85% !important;
-        left: 85% !important;
-    }
 </style>
 
 <nav class="navbar d-flex">
@@ -62,7 +57,7 @@
     @endguest
 
     @auth
-         <button type="button" class="username btn-dropdown ms-auto fw-semibold text-truncate" data-bs-toggle="dropdown" aria-expanded="false">
+         <button type="button" class="username btn-dropdown ms-auto fw-semibold" data-bs-toggle="dropdown" aria-expanded="false">
             @if (Auth::user()->profile_pic == null)
                 <img src="{{ asset('image/placeholder_pfp.png')}}" alt="">
             @else
@@ -71,7 +66,7 @@
         </button>
         <button type="button" class="username btn-dropdown ms-auto fw-semibold text-truncate" data-bs-toggle="dropdown" aria-expanded="false">{{Auth::user()->name}}
         </button>
-        <ul class="account-menu dropdown-menu justify-content-end position-absolute">
+        <ul class="account-menu dropdown-menu dropdown-menu-end justify-content-end">
             <li><a class="dropdown-item" href="{{ route('home') }}">Home</a></li>
             <li><a class="dropdown-item" href="{{ route('account-info') }}">Profile</a></li>
             <li><a class="dropdown-item" href="{{ route('anime-list') }}">My Anime List</a></li>

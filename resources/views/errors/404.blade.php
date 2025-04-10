@@ -1,5 +1,5 @@
 <x-main-layout>
-    <x-slot:title>{{ $title }}</x-slot:title>
+    <x-slot:title>Page Not Found</x-slot:title>
     <style>
         #not_found_section {
             margin-top: 30vh;
