@@ -4,7 +4,7 @@
     <div class="container-fluid mb-5">
         <form action="{{ route('search-results') }}" method="GET" class="d-flex search-bar mx-auto" role="search">
             @csrf
-            <input name="anime_title" class="form-control me-2" type="search" placeholder="Type to Search" aria-label="Search">
+            <input name="anime_title" class="form-control me-2" type="search" placeholder="Search by title..." aria-label="Search">
             <button class="btn" type="submit">Search</button>
         </form>
     </div>
@@ -19,8 +19,8 @@
     @auth
         <div id="recommendation-results" class="row justify-content-center">
             @if(isset($data['data']) && count($data['data']) > 0)
-                <h2 class="text-center fw-semibold">Recommended For You</h2>
-
+                <h4 class="text-center">Based on your latest search and anime list...</h4>
+                <h2 class="text-center fw-semibold">Here Are Some Recommendations For You</h2>
                 @foreach ($data['data'] as $anime)
                     <div class="card bg-transparent text-white col-4">
                         <div class="card-body bg-transparent ">

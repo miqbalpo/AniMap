@@ -4,7 +4,7 @@
     <form id="signup-form" action="{{ route('register.create-account') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-4">
-            <label for="username-input" class="form-label">Username</label>
+            <label for="username-input" class="form-label">Name</label>
             <input type="text" name="username" class="form-control border-info" placeholder="AnonymousUser123" minlength="5" required>
         </div>
         <div class="mb-4">

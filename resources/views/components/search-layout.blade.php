@@ -1,7 +1,7 @@
 <div class="mb-4">
     <form action="{{ route('search-results') }}" method="GET" class="d-flex search-bar ms-auto justify-content-end" role="search" style="width: 25%;">
         @csrf
-        <input name="anime_title" class="form-control me-2" type="search" placeholder="Type to Search" aria-label="Search">
+        <input name="anime_title" class="form-control me-2" type="search" placeholder="Search by title..." aria-label="Search">
         <button class="btn" type="submit" style="background-color:#1B262C;">Search</button>
     </form>
 </div>

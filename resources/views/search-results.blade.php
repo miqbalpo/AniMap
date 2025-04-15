@@ -4,7 +4,7 @@
     <div class="container-fluid mb-5">
         <form action="{{ route('search-results') }}" method="GET" class="d-flex search-bar mx-auto" role="search">
             @csrf
-            <input name="anime_title" class="form-control me-2" type="search" placeholder="Type to Search" aria-label="Search" value="{{ $oldTitle }}">
+            <input name="anime_title" class="form-control me-2" type="search" placeholder="Search by title..." aria-label="Search" value="{{ $oldTitle }}">
             <input type="hidden" name="genre" id="selected-genre" value="{{ old('genre', $oldGenre) }}">
             <input type="hidden" name="min_score" id="min-score" value="{{ old('min_score', $minScore) }}">
             <input type="hidden" name="max_score" id="max-score" value="{{ old('max_score', $maxScore) }}">

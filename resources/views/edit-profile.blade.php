@@ -27,7 +27,7 @@
                     </div>
                     <div id="account-details" class="text-start">
                         <div class="d-flex mb-4 ms-4 bg-transparent">
-                            <h2 class="ms-4 fw-semibold">Username</h2>
+                            <h2 class="ms-4 fw-semibold">Name</h2>
                             <input type="text" name="username" class="fs-5 fw-medium my-auto text-end form-control" placeholder="{{ $username }}" aria-label="Username" aria-describedby="basic-addon1" minlength="5" value="{{ $username }}" required>
                         </div>
                         <div class="d-flex mb-4 ms-4 bg-transparent">
