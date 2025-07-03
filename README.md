@@ -7,7 +7,7 @@ The **Content-Based Filtering** method in this system applies **Rule-Based Filte
 
 
 ## Key Features
-1. Search animes with filters based on its properties (such as title, genre, rating, themes, etc).
+1. Search animes with filters based on their properties (such as title, genre, rating, themes, etc).
 2. Detailed information for each animes with additional informations like voice actors, production staffs, theme songs, and PVs.
 3. Bookmark animes based on their status (liked, plan to watch, currently watching, disliked, and won't watch).
 4. Automatic anime recommendations based on the users' anime list and recent activities.
